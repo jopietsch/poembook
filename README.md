@@ -36,13 +36,18 @@ poembook practice a1 --mode first-words
 poembook practice a1 --mode initials
 poembook practice a1 --mode blanks
 poembook status a1 learning
-poembook verify a1             # after comparing the text with its cited edition
+poembook verify --all          # all structural checks, then a resumable editorial queue
+poembook verify --all --structural-only
+poembook verify a1             # check and confirm one poem after source comparison
 ```
 
 `audit --strict` exits unsuccessfully while any text is missing, structurally
-suspect, or unverified. The builders exclude structurally suspect downloads.
-Verification is intentionally manual: punctuation, capitalization, stress
-marks, and editorial variants matter when a text will be memorized.
+suspect, or editorially unverified. The builders exclude structurally suspect
+downloads. `verify --all` records automatic structural results first, then lets
+you confirm clean texts against their cited editions with `yes`, `view`, `skip`,
+or `quit`; progress is written after every confirmation, so later runs resume.
+Editorial verification is intentionally human: punctuation, capitalization,
+stress marks, translations, and edition choices matter when a text is memorized.
 
 Personal memorization state is stored in `.poembook-progress.json` and is not
 committed.

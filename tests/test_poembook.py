@@ -1,5 +1,5 @@
 from poems import CATEGORIES, POEMS, all_poems, slug
-from poembook_cli import expected_lines, practice_text
+from poembook_cli import expected_lines, practice_text, record_verification, verification_level
 
 
 def test_catalog_has_unique_slugs_and_required_fields():
@@ -26,3 +26,13 @@ def test_practice_modes_preserve_line_structure():
     assert practice_text(poem, "first-words") == "Hope\nWith"
     assert practice_text(poem, "initials") == "H i a t\nW f"
     assert practice_text(poem, "blanks") == "_____ _____ _____ _____\n_____ _____"
+
+
+def test_verification_levels_are_distinct():
+    meta = {}
+    record_verification(meta, "structural", "test")
+    assert verification_level(meta) == "structural"
+    assert meta["status"] == "structurally_valid"
+    record_verification(meta, "editorial", "test review")
+    assert verification_level(meta) == "editorial"
+    assert meta["status"] == "verified"

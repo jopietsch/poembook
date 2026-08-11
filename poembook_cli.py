@@ -2,6 +2,7 @@
 """Command-line tools for auditing, building, and memorizing the collection."""
 
 import argparse
+import datetime
 import json
 import os
 import re
@@ -14,6 +15,7 @@ ROOT = Path(__file__).resolve().parent
 TEXTS = ROOT / "texts"
 PROGRESS = ROOT / ".poembook-progress.json"
 REQUIRED = ("num", "title", "author", "dates", "form", "why", "difficulty", "links", "pd")
+VERIFY_VERSION = 1
 
 
 def nonblank_lines(text):
@@ -69,10 +71,9 @@ def audit():
             text = path.read_text(encoding="utf-8")
             for issue in text_issues(cat, poem, text):
                 warnings.append(f"{sid}: {issue}")
-            meta_path = path.with_suffix(".json")
-            meta = json.loads(meta_path.read_text(encoding="utf-8")) if meta_path.exists() else {}
-            if meta.get("status") != "verified":
-                warnings.append(f"{sid}: text is not marked verified")
+            meta, _ = load_text_meta(path)
+            if verification_level(meta) != "editorial":
+                warnings.append(f"{sid}: text is not editorially verified")
     return errors, warnings
 
 
@@ -81,6 +82,62 @@ def find_poem(sid):
         if slug(cat["id"], poem) == sid:
             return cat, poem
     raise SystemExit(f"unknown poem slug: {sid}")
+
+
+def load_text_meta(path):
+    meta_path = path.with_suffix(".json")
+    if not meta_path.exists():
+        return {}, meta_path
+    return json.loads(meta_path.read_text(encoding="utf-8")), meta_path
+
+
+def verification_level(meta):
+    """Return the strongest recorded verification level, including legacy metadata."""
+    verification = meta.get("verification", {})
+    if verification.get("editorial", {}).get("status") == "passed":
+        return "editorial"
+    if meta.get("status") == "verified":  # v0 metadata migration
+        return "editorial"
+    if verification.get("structural", {}).get("status") == "passed":
+        return "structural"
+    return None
+
+
+def record_verification(meta, level, method):
+    now = datetime.datetime.now(datetime.timezone.utc).replace(microsecond=0).isoformat()
+    verification = meta.setdefault("verification", {})
+    verification[level] = {
+        "status": "passed", "checked_at": now, "method": method,
+        "schema_version": VERIFY_VERSION,
+    }
+    if level == "editorial":
+        meta["status"] = "verified"
+    elif meta.get("status") != "verified":
+        meta["status"] = "structurally_valid"
+
+
+def structurally_verify(cat, poem, path):
+    if not path.exists():
+        return ["text file does not exist"]
+    return text_issues(cat, poem, path.read_text(encoding="utf-8"))
+
+
+def editorial_prompt(sid, poem, path, meta):
+    source = meta.get("url") or (poem.get("links") or [("", "no source URL recorded")])[0][1]
+    while True:
+        print(f"\n{sid}: {poem['title']} — {poem['author']}")
+        print(f"Source: {source}")
+        answer = input("Compared word-for-word with that edition? [y]es [v]iew [s]kip [q]uit: ").strip().lower()
+        if answer in ("y", "yes"):
+            return "verified"
+        if answer in ("s", "skip", ""):
+            return "skipped"
+        if answer in ("q", "quit"):
+            return "quit"
+        if answer in ("v", "view"):
+            print("\n" + path.read_text(encoding="utf-8").rstrip() + "\n")
+        else:
+            print("Please enter y, v, s, or q.")
 
 
 def practice_text(text, mode):
@@ -124,8 +181,10 @@ def main(argv=None):
     status_parser = commands.add_parser("status", help="show or update memorization status")
     status_parser.add_argument("slug", nargs="?")
     status_parser.add_argument("state", nargs="?", choices=("want-to-learn", "learning", "memorized"))
-    verify_parser = commands.add_parser("verify", help="mark a reviewed local text verified")
-    verify_parser.add_argument("slug")
+    verify_parser = commands.add_parser("verify", help="structurally check and editorially review texts")
+    verify_parser.add_argument("slug", nargs="?")
+    verify_parser.add_argument("--all", action="store_true", help="check all texts, then open a resumable review queue")
+    verify_parser.add_argument("--structural-only", action="store_true", help="record structural results without editorial review")
     commands.add_parser("clean-cache", help="remove safe title/folio preambles")
     args = parser.parse_args(argv)
 
@@ -169,19 +228,48 @@ def main(argv=None):
             print(f"{sid:<6} {value['state']}")
         return 0
     if args.command == "verify":
-        cat, poem = find_poem(args.slug)
-        path = TEXTS / f"{args.slug}.txt"
-        if not path.exists():
-            raise SystemExit("text file does not exist")
-        issues = text_issues(cat, poem, path.read_text(encoding="utf-8"))
-        if issues:
-            raise SystemExit("cannot verify: " + "; ".join(issues))
-        meta_path = path.with_suffix(".json")
-        meta = json.loads(meta_path.read_text(encoding="utf-8")) if meta_path.exists() else {}
-        meta["status"] = "verified"
-        meta_path.write_text(json.dumps(meta, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-        print(f"marked {args.slug} verified")
-        return 0
+        if bool(args.slug) == bool(args.all):
+            raise SystemExit("provide one slug or --all")
+        targets = list(all_poems()) if args.all else [find_poem(args.slug)]
+        clean, failed = [], []
+        for cat, poem in targets:
+            sid = slug(cat["id"], poem)
+            path = TEXTS / f"{sid}.txt"
+            if not poem.get("pd") and not path.exists():
+                continue
+            issues = structurally_verify(cat, poem, path)
+            if issues:
+                failed.append((sid, issues))
+                continue
+            meta, meta_path = load_text_meta(path)
+            record_verification(meta, "structural", "poembook structural checks")
+            meta_path.write_text(json.dumps(meta, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+            clean.append((sid, poem, path, meta, meta_path))
+        print(f"Structural verification: {len(clean)} passed, {len(failed)} failed")
+        for sid, issues in failed:
+            print(f"  FAIL {sid}: {'; '.join(issues)}")
+        if args.structural_only:
+            return 1 if failed else 0
+        pending = [item for item in clean if verification_level(item[3]) != "editorial"]
+        if not pending:
+            print("Editorial verification: nothing pending")
+            return 1 if failed else 0
+        if not sys.stdin.isatty():
+            print(f"Editorial verification: {len(pending)} pending; run in an interactive terminal")
+            return 1
+        verified = 0
+        for sid, poem, path, meta, meta_path in pending:
+            result = editorial_prompt(sid, poem, path, meta)
+            if result == "quit":
+                break
+            if result == "verified":
+                record_verification(meta, "editorial", "human word-for-word source comparison")
+                meta_path.write_text(json.dumps(meta, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+                verified += 1
+                print(f"  marked {sid} editorially verified")
+        remaining = len(pending) - verified
+        print(f"Editorial verification: {verified} newly verified, {remaining} left in this queue")
+        return 1 if failed else 0
     if args.command == "clean-cache":
         changed = 0
         for cat, poem in all_poems():
