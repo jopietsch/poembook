@@ -35,6 +35,7 @@ import sys
 import time
 import json
 import random
+import re
 
 try:
     import requests
@@ -43,6 +44,7 @@ except ImportError:
     sys.exit("Need: pip install requests beautifulsoup4 lxml")
 
 from poems import public_domain_poems, slug
+from poembook_cli import expected_lines, text_issues
 
 API = "https://en.wikisource.org/w/api.php"
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -177,6 +179,48 @@ def extract_poem(html_text):
     return "\n".join(out).strip()
 
 
+def normalize_candidate(cat, poem, text):
+    """Remove short title/folio preambles commonly emitted by Wikisource."""
+    expected = expected_lines(poem)
+    if not expected:
+        return text
+    lines = text.splitlines()
+    nonblank = [i for i, line in enumerate(lines) if line.strip()]
+    excess = len(nonblank) - expected
+    if 0 < excess <= 4:
+        remove = set(nonblank[:excess])
+        text = "\n".join(line for i, line in enumerate(lines) if i not in remove).strip()
+    return text
+
+
+_gutenberg_text = None
+
+
+def get_gutenberg_poem(poem):
+    """Extract a named poem from Jessie Lemont's public-domain 1918 Rilke volume."""
+    global _gutenberg_text
+    if _gutenberg_text is None:
+        response = session.get("https://www.gutenberg.org/files/38594/38594-8.txt", timeout=45)
+        response.raise_for_status()
+        _gutenberg_text = response.text.replace("\r\n", "\n")
+    heading = poem["gutenberg_section"]
+    matches = list(re.finditer(rf"(?im)^\s*{re.escape(heading)}\s*$", _gutenberg_text))
+    if not matches:
+        return ""
+    boundary = matches[-1].start() if poem.get("gutenberg_marker_is_line") else matches[-1].end()
+    tail = _gutenberg_text[boundary:].strip()
+    expected = expected_lines(poem)
+    chosen = []
+    for line in tail.splitlines():
+        if line.strip():
+            chosen.append(line.rstrip())
+            if expected and len([x for x in chosen if x.strip()]) == expected:
+                break
+        elif chosen:
+            chosen.append("")
+    return "\n".join(chosen).strip() if expected else ""
+
+
 def problems_with(text):
     if not text:
         return ["empty"]
@@ -237,20 +281,25 @@ def main():
 
         print(f"  [fetching     ] {sl:<5} {label}", flush=True)
         try:
-            titles = search_titles(poem["ws"], cache)
-            if not titles:
-                flagged.append((sl, label, f"no Wikisource hit for {poem['ws']!r}"))
-                print("        no search hit")
-                continue
+            if poem.get("gutenberg_section"):
+                titles = []
+                text = get_gutenberg_poem(poem)
+                used = f"Project Gutenberg #38594: {poem['gutenberg_section']}"
+            else:
+                titles = search_titles(poem["ws"], cache)
+                if not titles:
+                    flagged.append((sl, label, f"no Wikisource hit for {poem['ws']!r}"))
+                    print("        no search hit")
+                    continue
+                text, used = "", None
 
             # Try the top hit first. Only fall through on genuine failure, so
             # the common case costs exactly two requests.
-            text, used = "", None
             for i, title in enumerate(titles[:3]):
                 html_text = get_page_html(title)
                 if html_text:
-                    cand = extract_poem(html_text)
-                    if cand and len([l for l in cand.split("\n") if l.strip()]) >= 4:
+                    cand = normalize_candidate(cat, poem, extract_poem(html_text))
+                    if cand and not text_issues(cat, poem, cand):
                         text, used = cand, title
                         break
                 if i < 2:
@@ -264,9 +313,12 @@ def main():
             with open(path, "w", encoding="utf-8") as f:
                 f.write(text + "\n")
             with open(path.replace(".txt", ".json"), "w", encoding="utf-8") as f:
-                json.dump({"wikisource_page": used,
+                json.dump({"source": used,
                            "search": poem["ws"],
-                           "url": "https://en.wikisource.org/wiki/" + used.replace(" ", "_")},
+                           "url": ("https://www.gutenberg.org/ebooks/38594"
+                                   if poem.get("gutenberg_section") else
+                                   "https://en.wikisource.org/wiki/" + used.replace(" ", "_")),
+                           "status": "fetched"},
                           f, indent=2, ensure_ascii=False)
 
             fetched += 1

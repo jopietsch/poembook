@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+*.egg-info/
+.coverage
+.DS_Store
+.poembook-progress.json
+poems-to-memorize.md
+*.epub

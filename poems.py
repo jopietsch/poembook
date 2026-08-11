@@ -48,6 +48,17 @@ CATEGORIES = [
             "If you want fast wins, start here."
         ),
     },
+    {
+        "id": "d",
+        "title": "The Rilke line",
+        "subtitle": "Solitude, attention, terror, and the demand to be transformed",
+        "intro": (
+            "Rilke makes a fourth path through the book: the world looks back at us, "
+            "beauty is inseparable from terror, and sustained attention becomes a demand "
+            "to change. The included English texts use Jessie Lemont's public-domain 1918 "
+            "translations. Modern translations are linked when their choices are important."
+        ),
+    },
 ]
 
 DICKINSON_NOTE = (
@@ -489,6 +500,140 @@ FURTHER = {
     ("William Wordsworth, \u201cThe world is too much with us\u201d (1807)", "Sonnet."),
 ],
 }
+
+# Entries promoted from the original “also worth your time” lists.  Keeping
+# these as ordinary poem records means every output and tool sees them.
+PROMOTED = {
+"a": [
+    dict(title="Psalm 139:7–12", author="King James Bible", dates="1611", form="6 lines (one per verse)",
+         why="The direct scriptural ancestor of Thompson's flight from an inescapable presence.",
+         difficulty="Easy", links=[("Bible Gateway (KJV)", "https://www.biblegateway.com/passage/?search=Psalm%20139%3A7-12&version=KJV")], pd=True, ws="Psalm 139 King James Version"),
+    dict(title="The Bright Field", author="R. S. Thomas", dates="1975", form="short free verse",
+         why="A glimpse of radiance becomes the pearl for which a life might be sold.", difficulty="Moderate",
+         links=[("Poetry Archive", "https://poetryarchive.org/poem/bright-field/")], pd=False, ws=None),
+    dict(title="The Avowal", author="Denise Levertov", dates="1981", form="short free verse",
+         why="Free fall becomes an image of trust and grace.", difficulty="Easy–Moderate",
+         links=[("Poetry Foundation", "https://www.poetryfoundation.org/poems/48790/the-avowal")], pd=False, ws=None),
+    dict(title="Pied Beauty", author="Gerard Manley Hopkins", dates="1877; pub. 1918", form="11 lines, curtal sonnet",
+         why="Praise compressed into sprung rhythm: glory in everything dappled and changeable.", difficulty="Moderate",
+         links=[("Poetry Foundation", "https://www.poetryfoundation.org/poems/44399/pied-beauty")], pd=True, ws="Pied Beauty Hopkins"),
+    dict(title="As Kingfishers Catch Fire", author="Gerard Manley Hopkins", dates="1877; pub. 1918", form="14 lines, sonnet",
+         why="Each created thing speaks its own identity; the just person becomes the grace they enact.", difficulty="Moderate",
+         links=[("Poetry Foundation", "https://www.poetryfoundation.org/poems/44389/as-kingfishers-catch-fire")], pd=True, ws="As kingfishers catch fire Hopkins"),
+],
+"b": [
+    dict(title="The Art of Disappearing", author="Naomi Shihab Nye", dates="1995", form="free verse",
+         why="Permission to protect the inward life and decline the noise of performance.", difficulty="Moderate",
+         links=[("Poets.org", "https://poets.org/poem/art-disappearing")], pd=False, ws=None),
+    dict(title="Burning the Old Year", author="Naomi Shihab Nye", dates="1995", form="three stanzas, free verse",
+         why="What burns easily in a year, and the few things that resist the fire.", difficulty="Easy–Moderate",
+         links=[("Poetry Foundation", "https://www.poetryfoundation.org/poems/57211/burning-the-old-year")], pd=False, ws=None),
+    dict(title="Late Fragment", author="Raymond Carver", dates="1989", form="5 lines, free verse",
+         why="A final accounting of whether one felt beloved and needed by life.", difficulty="Easy",
+         links=[("Poetry Foundation", "https://www.poetryfoundation.org/poems/58074/late-fragment")], pd=False, ws=None),
+    dict(title="Gift", author="Czesław Miłosz", dates="1971", form="short free verse",
+         why="A day without envy or pain, received without needing to possess it.", difficulty="Easy–Moderate",
+         links=[("Poetry Foundation", "https://www.poetryfoundation.org/poems/49458/gift")], pd=False, ws=None),
+    dict(title="Postscript", author="Seamus Heaney", dates="1996", form="free verse",
+         why="Wind and light catch the guarded heart off guard and blow it open.", difficulty="Moderate",
+         links=[("Poetry Archive", "https://poetryarchive.org/poem/postscript/")], pd=False, ws=None),
+    dict(title="Thanks", author="W. S. Merwin", dates="1988", form="free verse",
+         why="Gratitude repeated inside catastrophe, without pretending catastrophe away.", difficulty="Moderate",
+         links=[("Poetry Foundation", "https://www.poetryfoundation.org/poems/57937/thanks")], pd=False, ws=None),
+    dict(title="Go to the Limits of Your Longing", author="Rainer Maria Rilke", dates="Book of Hours; Barrows/Macy trans. 1996", form="untitled poem in translation",
+         why="Let everything happen—beauty and terror—and continue. The famous English title belongs to the translators.", difficulty="Moderate",
+         links=[("Poetry Chaikhana (translation page)", "https://www.poetry-chaikhana.com/Poets/R/RilkeRainerM/GoToLimits/index.html")], pd=False, ws=None),
+    dict(title="Wild Geese", author="Mary Oliver", dates="1986", form="18 lines, free verse",
+         why="Belonging offered without a prerequisite of goodness.", difficulty="Moderate",
+         links=[("Library of Congress guide", "https://www.loc.gov/programs/poetry-and-literature/poet-laureate/poet-laureate-projects/poetry-180/all-poems/item/poetry-180-133/wild-geese/")], pd=False, ws=None),
+    dict(title="Sorrow Is Not My Name", author="Ross Gay", dates="2011", form="free verse",
+         why="Joy and grief held together as a refusal to let sorrow own the whole world.", difficulty="Moderate",
+         links=[("Poetry Foundation", "https://www.poetryfoundation.org/poems/92472/sorrow-is-not-my-name")], pd=False, ws=None),
+    dict(title="Good Bones", author="Maggie Smith", dates="2016", form="free verse",
+         why="The terrible world presented to children through the language of a hopeful sales pitch.", difficulty="Moderate",
+         links=[("Poetry Foundation", "https://www.poetryfoundation.org/poems/89897/good-bones")], pd=False, ws=None),
+],
+"c": [
+    dict(title="I heard a Fly buzz — when I died —", author="Emily Dickinson", dates="Fr591; pub. 1896", form="16 lines, hymn meter",
+         why="A single ordinary interruption carries an entire deathbed scene.", difficulty="Easy",
+         links=[("Poetry Foundation", "https://www.poetryfoundation.org/poems/45703/i-heard-a-fly-buzz-when-i-died-591")], pd=True, ws="I heard a Fly buzz when I died Dickinson"),
+    dict(title="Much Madness is divinest Sense —", author="Emily Dickinson", dates="Fr620; pub. 1890", form="8 lines, hymn meter",
+         why="One paradox sustained with frightening social clarity.", difficulty="Easy",
+         links=[("Poetry Foundation", "https://www.poetryfoundation.org/poems/51612/much-madness-is-divinest-sense-620")], pd=True, ws="Much Madness is divinest Sense Dickinson"),
+    dict(title="Success is counted sweetest", author="Emily Dickinson", dates="Fr112; pub. 1864", form="12 lines, hymn meter",
+         why="Defeat is made the condition for understanding victory.", difficulty="Easy",
+         links=[("Poetry Foundation", "https://www.poetryfoundation.org/poems/45721/success-is-counted-sweetest-112")], pd=True, ws="Success is counted sweetest Dickinson"),
+    dict(title="Dreams", author="Langston Hughes", dates="1922", form="8 lines, two quatrains",
+         why="A compact imperative whose two images make it almost impossible to forget.", difficulty="Easy",
+         links=[("Poetry Foundation", "https://www.poetryfoundation.org/poems/150995/dreams-5d767850da976")], pd=True, ws="Dreams Langston Hughes"),
+    dict(title="Sonnet 73: That time of year thou mayst in me behold", author="William Shakespeare", dates="1609", form="14 lines, Shakespearean sonnet",
+         why="Three images of approaching death narrow toward a final claim for love.", difficulty="Easy–Moderate",
+         links=[("Poets.org", "https://poets.org/poem/time-year-thou-mayst-me-behold-sonnet-73")], pd=True, ws="Shakespeare Sonnet 73"),
+    dict(title="When I have fears that I may cease to be", author="John Keats", dates="1818; pub. 1848", form="14 lines, Shakespearean sonnet",
+         why="Fear of unwritten work and unlived love dissolves at the edge of the world.", difficulty="Easy–Moderate",
+         links=[("Poetry Foundation", "https://www.poetryfoundation.org/poems/44488/when-i-have-fears-that-i-may-cease-to-be")], pd=True, ws="When I have fears Keats"),
+    dict(title="The Tyger", author="William Blake", dates="1794", form="24 lines, six quatrains",
+         why="A sequence of questions makes terror and wonder share one unforgettable image.", difficulty="Easy",
+         links=[("Poetry Foundation", "https://www.poetryfoundation.org/poems/43687/the-tyger")], pd=True, ws="The Tyger William Blake"),
+    dict(title="Auguries of Innocence (opening)", author="William Blake", dates="written c. 1803; pub. 1863", form="4 lines, opening quatrain",
+         why="Four lines hold infinity and eternity inside the smallest visible things.", difficulty="Easy",
+         links=[("Poetry Foundation", "https://www.poetryfoundation.org/poems/43650/auguries-of-innocence")], pd=True, ws="Auguries of Innocence Blake"),
+    dict(title="To the Virgins, to Make Much of Time", author="Robert Herrick", dates="1648", form="16 lines, four quatrains",
+         why="The rosebud argument for mortality and action in its most memorable form.", difficulty="Easy",
+         links=[("Poetry Foundation", "https://www.poetryfoundation.org/poems/46546/to-the-virgins-to-make-much-of-time")], pd=True, ws="To the Virgins Herrick"),
+    dict(title="In the Desert", author="Stephen Crane", dates="1895", form="10 lines, free verse",
+         why="A creature eats its own bitter heart and insists that it likes it.", difficulty="Easy",
+         links=[("Poetry Foundation", "https://www.poetryfoundation.org/poems/46457/in-the-desert-56d2265793693")], pd=True, ws="In the Desert Stephen Crane"),
+    dict(title="The world is too much with us", author="William Wordsworth", dates="1807", form="14 lines, Petrarchan sonnet",
+         why="Estrangement from nature answered by a desperate wish for an older vision.", difficulty="Easy–Moderate",
+         links=[("Poetry Foundation", "https://www.poetryfoundation.org/poems/45564/the-world-is-too-much-with-us")], pd=True, ws="The world is too much with us Wordsworth"),
+],
+}
+
+RILKE = [
+    ("Autumnal Day", "Herbsttag", "12 lines", "Ripeness, solitude, and the irreversible turn into autumn."),
+    ("The Panther", "Der Panther", "12 lines", "Captivity rendered through exhausted sight and one final inward image."),
+    ("Archaic Torso of Apollo", "Archäischer Torso Apollos", "14 lines, sonnet", "An artwork looks back and makes the demand: change your life."),
+    ("Early Apollo", "Früher Apollo", "14 lines, sonnet", "The young god's face holds song before the full blaze of summer."),
+    ("The Spanish Dancer", "Spanische Tänzerin", "18 lines", "A dancer becomes fire, then stamps the flame out."),
+    ("Love Song", "Liebes-Lied", "17 lines", "Two solitudes seek a music that can hold them without erasing either."),
+    ("The Poet", "Der Dichter", "8 lines", "The cost of a life surrendered to inward transformation."),
+    ("Growing Blind", "Die Erblindende", "14 lines", "A woman's failing sight changes the space and people around her."),
+    ("I Live My Life in Circles", "Ich lebe mein Leben in wachsenden Ringen", "9 lines", "A life circles the divine without needing to know whether it will arrive."),
+    ("I Love My Life's Dark Hours", "Ich liebe meines Wesens Dunkelstunden", "12 lines", "Dark hours become the place where the self acquires depth and duration."),
+    ("Extinguish My Eyes", "Lösch mir die Augen aus", "12 lines", "Every sense can be taken and the beloved still found inwardly."),
+    ("Solitude", "Einsamkeit", "12 lines", "Loneliness rises from the streets like rain and gathers through the city."),
+    ("Presaging", "Vorgefühl", "12 lines", "A coming storm is felt first as an immense unnamed disturbance."),
+]
+
+POEMS["d"] = []
+for _i, (_title, _german, _form, _why) in enumerate(RILKE, 1):
+    POEMS["d"].append(dict(num=str(_i), title=_title, author="Rainer Maria Rilke",
+        dates=f"Jessie Lemont translation, <em>Poems</em> (1918); German: <em>{_german}</em>",
+        form=_form, why=_why, difficulty="Moderate",
+        links=[("Project Gutenberg: Poems (1918)", "https://www.gutenberg.org/ebooks/38594")],
+        pd=True, ws=None, gutenberg_section=_title.upper()))
+
+# In the plain-text Gutenberg edition these three Book of Hours poems have no
+# separate headings; their first lines are the reliable extraction markers.
+for _index, _marker, _form in (
+    (8, "I live my life in circles that grow wide", "10 lines"),
+    (9, "I love my life's dark hours", "14 lines"),
+    (10, "Extinguish my eyes, I still can see you", "10 lines"),
+):
+    POEMS["d"][_index]["gutenberg_section"] = _marker
+    POEMS["d"][_index]["gutenberg_marker_is_line"] = True
+    POEMS["d"][_index]["form"] = _form
+
+for _cid, _entries in PROMOTED.items():
+    _start = len(POEMS[_cid])
+    for _offset, _poem in enumerate(_entries, 1):
+        _poem.setdefault("seed", False)
+        _poem["num"] = str(_start + _offset - 1)
+        POEMS[_cid].append(_poem)
+
+# Nothing remains a second-class recommendation after promotion.
+FURTHER = {c["id"]: [] for c in CATEGORIES}
 
 
 def all_poems():

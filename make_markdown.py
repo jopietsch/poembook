@@ -37,7 +37,9 @@ def load_text(cid, poem):
     p = os.path.join(TEXTDIR, slug(cid, poem) + ".txt")
     if os.path.exists(p):
         t = open(p, encoding="utf-8").read().strip()
-        if t:
+        from poembook_cli import text_issues
+        cat = next(c for c in CATEGORIES if c["id"] == cid)
+        if t and not text_issues(cat, poem, t):
             return t
     return None
 
@@ -51,11 +53,12 @@ def main():
     n_txt = sum(1 for c in CATEGORIES for p in POEMS[c["id"]]
                 if p.get("pd") and load_text(c["id"], p))
     n_c = sum(1 for c in CATEGORIES for p in POEMS[c["id"]] if not p.get("pd"))
+    n_total = n_pd + n_c
 
     L = []
     L.append("# Poems to Cherish and Memorize")
     L.append("### A curated expansion from three seed poems\n")
-    L.append("**Seeds** \u2014 each heads its own category, as entry **\u00a70**:")
+    L.append("**Original seeds** \u2014 each heads one of the first three categories as entry **\u00a70**:")
     L.append("- Francis Thompson, \u201cThe Hound of Heaven\u201d (1890/1893) \u2192 Category A")
     L.append("- Naomi Shihab Nye, \u201cKindness\u201d (coll. 1995) \u2192 Category B")
     L.append("- Emily Dickinson, \u201c\u2018Hope\u2019 is the thing with feathers\u201d (Fr314) \u2192 Category C")
@@ -63,11 +66,12 @@ def main():
 
     # ---------- table of contents ----------
     L.append("## Contents\n")
-    L.append("**Three sections, one growing out of each poem you started with.**\n")
+    L.append("**Four thematic threads, including a new path through Rilke.**\n")
 
     seeds = {"a": "Thompson, \u201cThe Hound of Heaven\u201d",
              "b": "Nye, \u201cKindness\u201d",
-             "c": "Dickinson, \u201c\u2018Hope\u2019 is the thing with feathers\u201d"}
+             "c": "Dickinson, \u201c\u2018Hope\u2019 is the thing with feathers\u201d",
+             "d": "Rilke's solitude and transformation poems"}
     L.append("| | Section | Grows out of | Poems | Texts |")
     L.append("|---|---|---|---|---|")
     for i, cat in enumerate(CATEGORIES, 1):
@@ -100,8 +104,9 @@ def main():
                 mark = " \u26a0"
             L.append(f"    - {p['num']}. [{p['title']}](#{anchor(p['num'] + ' ' + p['title'])})"
                      f" \u2014 {p['author']}{mark}")
-        L.append(f"    - [Also worth your time in this vein]"
-                 f"(#also-worth-your-time--{cat['id']})")
+        if FURTHER.get(cat["id"]):
+            L.append(f"    - [Also worth your time in this vein]"
+                     f"(#also-worth-your-time--{cat['id']})")
     L.append("- [A suggested memorization order](#a-suggested-memorization-order)")
     L.append("- [Colophon](#colophon)")
     L.append("\n</details>\n")
@@ -110,15 +115,13 @@ def main():
 
     # ---------- how to use ----------
     L.append("## How to use this file\n")
-    L.append("39 poems \u2014 three seeds plus twelve more in each of their three categories \u2014 "
-             "with a further ~20 named at the end of each section. Each entry gives "
+    L.append(f"{n_total} poems organized into {len(CATEGORIES)} thematic threads. Each entry gives "
              "**title, author, date, source, form, why it belongs, memorization difficulty, "
              "and a link**.\n")
-    L.append(f"**Which texts are here.** {n_pd} of the 39 are public domain in the US and "
+    L.append(f"**Which texts are here.** {n_pd} of the {n_total} are public domain in the US and "
              f"{n_txt} currently have their full text included. The {n_c} in the Kindness "
-             "category are under active copyright and appear as commentary and links only; "
-             "two of those have no authorized free text online at all and are flagged "
-             "individually with what to buy instead.\n")
+             "category are under active copyright and appear as commentary and authorized "
+             "links only.\n")
     L.append("**Check the texts before you commit them.** These were pulled from Wikisource "
              "by script \u2014 more reliable than most of what floats around the web, but not "
              "infallible, and it fails exactly where it matters for memorization: "
@@ -178,9 +181,10 @@ def main():
                 L.append(f"\u2192 [{label}]({url})")
             L.append("")
 
-        L.append(f"### Also worth your time \u2014 {cid}\n")
-        for name, note in FURTHER.get(cid, []):
-            L.append(f"- **{detag(name)}**" + (f" \u2014 {detag(note)}" if note else ""))
+        if FURTHER.get(cid):
+            L.append(f"### Also worth your time \u2014 {cid}\n")
+            for name, note in FURTHER.get(cid, []):
+                L.append(f"- **{detag(name)}**" + (f" \u2014 {detag(note)}" if note else ""))
         L.append("\n---\n")
 
     # ---------- order ----------
@@ -225,7 +229,7 @@ def main():
     L.append("\n---\n")
 
     L.append("# Colophon\n")
-    L.append(f"39 poems: {n_txt} with full text included ({n_pd} are public domain in the "
+    L.append(f"{n_total} poems: {n_txt} with full text included ({n_pd} are public domain in the "
              f"United States), {n_c} under copyright and given as commentary and links only. "
              "All links checked at time of writing.\n")
     L.append("Public-domain status noted throughout is for the United States and may differ "

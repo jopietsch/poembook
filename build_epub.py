@@ -119,7 +119,10 @@ def load_text(cat_id, poem):
     p = os.path.join(TEXTDIR, slug(cat_id, poem) + ".txt")
     if os.path.exists(p):
         t = open(p, encoding="utf-8").read().strip()
-        if t:
+        # Never publish a structurally suspect scrape merely because it exists.
+        from poembook_cli import text_issues
+        cat = next(c for c in CATEGORIES if c["id"] == cat_id)
+        if t and not text_issues(cat, poem, t):
             return t
     return None
 
@@ -185,17 +188,12 @@ def category_page(cat):
 
 HOWTO = """
 <h1>How to use this book</h1>
-<p>Thirty-nine poems \u2014 three seeds plus twelve more in each of their three
-categories \u2014 with a further twenty or so named at the end of each section.
-Each entry gives the poem's date and source, its form, why it belongs beside
-your three, how hard it is to memorize, and a link to an authoritative text.</p>
+<p>A growing collection organized into thematic threads from the original three
+seed poems, plus a fourth path through Rilke. Each entry gives the poem's date
+and source, form, commentary, memorization difficulty, and authoritative links.</p>
 
-<p><strong>Which texts are here.</strong> Twenty-six of the thirty-nine are in the public
-domain in the United States and their full texts are included. The thirteen in
-the Kindness section are under active copyright \u2014 Nye, Walcott, Bass, Gilbert,
-Clifton, Berry, Oliver, Howe, Zagajewski, Kinnell, Lam&#233;ris \u2014 and appear here as
-commentary and links only. Two of those thirteen have no authorized free text
-online at all; they are flagged individually with what to buy instead.</p>
+<p><strong>Which texts are here.</strong> Public-domain texts are included when available;
+works under active copyright appear as commentary and authorized links only.</p>
 
 <p><strong>Check the texts before you commit them.</strong> These were pulled from Wikisource
 by script. That is more reliable than most of what floats around the web, but it
@@ -286,6 +284,7 @@ def build(outpath):
     files = {}
     spine = []
     nav_entries = []
+    total_poems = sum(len(POEMS[c["id"]]) for c in CATEGORIES)
 
     files["style.css"] = CSS
 
@@ -293,7 +292,7 @@ def build(outpath):
         f'<h1 class="booktitle">{TITLE}</h1>'
         f'<p class="subtitle">{SUBTITLE}</p>'
         f'<p class="byline">Francis Thompson &#183; Naomi Shihab Nye &#183; Emily Dickinson<br/>'
-        f'and thirty-six others</p>')
+        f'and {total_poems - 3} others</p>')
     spine.append("title.xhtml")
 
     files["howto.xhtml"] = page("How to use this book", HOWTO)
@@ -350,7 +349,8 @@ def build(outpath):
     # of feeling rather than a wall of thirty-nine titles.
     seeds = {"a": "Francis Thompson, \u201cThe Hound of Heaven\u201d",
              "b": "Naomi Shihab Nye, \u201cKindness\u201d",
-             "c": "Emily Dickinson, \u201c\u2018Hope\u2019 is the thing with feathers\u201d"}
+             "c": "Emily Dickinson, \u201c\u2018Hope\u2019 is the thing with feathers\u201d",
+             "d": "Rilke's poems of solitude and transformation"}
     summary = ['<p class="lede">Three sections, one growing out of each poem '
                'you started with.</p>', '<div class="sections">']
     for n, cat in enumerate(CATEGORIES, 1):
