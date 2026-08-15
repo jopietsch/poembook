@@ -16,8 +16,12 @@ remain commentary plus links to authorized sources.
 ```bash
 python3 -m venv .venv
 . .venv/bin/activate
-pip install -e .
+pip install -e '.[dev]'
+git config core.hooksPath .githooks
 ```
+
+The shared hooks run the test suite before each commit and require a
+`Reviewed-by: NAME` commit-message trailer after review of the staged diff.
 
 Set a contact address before using Wikimedia, as its API policy requests:
 
@@ -49,6 +53,12 @@ or `quit`; progress is written after every confirmation, so later runs resume.
 Editorial verification is intentionally human: punctuation, capitalization,
 stress marks, translations, and edition choices matter when a text is memorized.
 
+Text sidecars in `texts/<slug>.json` distinguish three levels: `structural`
+checks catch shape and scraper problems; `source_comparison` records the chosen
+edition, comparison sources, and machine-assisted findings; `editorial` means a
+human completed a word-for-word comparison. Source comparison never implies
+editorial approval.
+
 Personal memorization state is stored in `.poembook-progress.json` and is not
 committed.
 
@@ -62,6 +72,12 @@ United States. Give Wikisource searches a `ws` value; copyrighted records use
 Rilke's included English texts come from Jessie Lemont's 1918 translation,
 available as public-domain Project Gutenberg ebook 38594. Modern translations
 often differ substantially and remain copyrighted.
+
+Prefer a stable, named book edition when one is available. Project Gutenberg is
+often stronger for whole-volume provenance; Wikisource is useful for individual
+poem discovery and extraction. Neither is automatically authoritative. Compare
+against at least one additional reputable edition, preserve intentional edition
+variants, and record all compared URLs and the chosen edition in the sidecar.
 
 ## Files
 
