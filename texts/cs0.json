@@ -1,5 +1,25 @@
 {
   "wikisource_page": "Poems: Second Series (Dickinson)/Hope",
   "search": "Hope is the thing with feathers Dickinson",
-  "url": "https://en.wikisource.org/wiki/Poems:_Second_Series_(Dickinson)/Hope"
+  "url": "https://en.wikisource.org/wiki/Poems:_Second_Series_(Dickinson)/Hope",
+  "verification": {
+    "structural": {
+      "status": "passed",
+      "checked_at": "2026-08-11T07:11:25+00:00",
+      "method": "poembook structural checks",
+      "schema_version": 1
+    },
+    "source_comparison": {
+      "status": "passed",
+      "checked_at": "2026-08-14",
+      "method": "word-for-word multi-source comparison by Codex; human editorial signoff still required",
+      "chosen_edition": "R. W. Franklin reading text (Fr314)",
+      "sources": [
+        "https://www.poetryfoundation.org/poems/42889/hope-is-the-thing-with-feathers-314",
+        "https://en.wikisource.org/wiki/Poems:_Second_Series_(Dickinson)/Hope"
+      ],
+      "notes": "Replaced the normalized 1891 Second Series text with the Franklin reading text. Restored Dickinson's dashes and capitals; notable variants include Gale, Bird, Sea, and Extremity."
+    }
+  },
+  "status": "structurally_valid"
 }

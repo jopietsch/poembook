@@ -1,5 +1,26 @@
 {
   "wikisource_page": "The Lake Isle of Innisfree",
   "search": "The Lake Isle of Innisfree Yeats",
-  "url": "https://en.wikisource.org/wiki/The_Lake_Isle_of_Innisfree"
+  "url": "https://en.wikisource.org/wiki/The_Lake_Isle_of_Innisfree",
+  "verification": {
+    "structural": {
+      "status": "passed",
+      "checked_at": "2026-08-11T07:11:25+00:00",
+      "method": "poembook structural checks",
+      "schema_version": 1
+    },
+    "source_comparison": {
+      "status": "passed",
+      "checked_at": "2026-08-14",
+      "method": "word-for-word multi-source comparison by Codex; human editorial signoff still required",
+      "chosen_edition": "Academy of American Poets text, checked against Yeats's 1908 Collected Works",
+      "sources": [
+        "https://poets.org/poem/lake-isle-innisfree",
+        "https://www.gutenberg.org/files/49608/49608-h/49608-h.htm#THE_LAKE_ISLE_OF_INNISFREE",
+        "https://www.poetryfoundation.org/poems/43281/the-lake-isle-of-innisfree"
+      ],
+      "notes": "Restored the missing first stanza and removed an appended public-domain notice. Chose later hyphenation and British grey from the Academy text; the 1908 edition prints bean rows, honey bee, and gray."
+    }
+  },
+  "status": "structurally_valid"
 }

@@ -107,7 +107,7 @@ def main():
         if FURTHER.get(cat["id"]):
             L.append(f"    - [Also worth your time in this vein]"
                      f"(#also-worth-your-time--{cat['id']})")
-    L.append("- [A suggested memorization order](#a-suggested-memorization-order)")
+    L.append("- [Recommended poems to start with](#recommended-poems-to-start-with)")
     L.append("- [Colophon](#colophon)")
     L.append("\n</details>\n")
     L.append("\u25aa = full text included \u00b7 \u26a0 = no authorized free text online\n")
@@ -188,33 +188,48 @@ def main():
         L.append("\n---\n")
 
     # ---------- order ----------
-    L.append("# A suggested memorization order\n")
-    L.append("Early wins first, gradually increasing difficulty, keeping all three lines of "
-             "feeling in rotation.\n")
-    L.append("**Where your three seeds fit.** Dickinson's \u201cHope\u201d belongs in the first group "
+    L.append("# Recommended poems to start with\n")
+    L.append("**Start with Emily Dickinson's [\u201cHope\u201d is the thing with feathers]"
+             "(#0-hope-is-the-thing-with-feathers).** It is short, "
+             "musical, and built on one image, so its meter and rhyme give you plenty of "
+             "cues. If you already know it, begin with George Herbert's "
+             "[\u201cLove (III).\u201d](#1-love-iii)\n")
+    L.append("The sequence below favors early wins, then gradually adds length and resistance "
+             "while keeping the book's different threads of feeling in rotation. You do not "
+             "need to follow it rigidly: a poem you urgently want to know is often easier to "
+             "learn than a technically simpler poem you merely admire.\n")
+    L.append("**Where your three seeds fit.** Dickinson's [\u201cHope\u201d]"
+             "(#0-hope-is-the-thing-with-feathers) belongs in the first group "
              "\u2014 it's as easy as anything here, and if you don't already have it, get it "
-             "first. Nye's \u201cKindness\u201d sits with the harder free verse around 12\u201315. "
-             "Thompson's \u201cHound of Heaven\u201d is in a category of its own: 182 irregular lines, "
+             "first. Nye's [\u201cKindness\u201d](#0-kindness) sits with the harder free verse "
+             "around 12\u201315. Thompson's [\u201cHound of Heaven\u201d](#0-the-hound-of-heaven) "
+             "is in a category of its own: 182 irregular lines, "
              "more than four times the length of anything else. Don't start with it, and "
              "consider learning it in movements \u2014 the flight, the failed refuges, the "
              "surrender \u2014 rather than whole.\n")
-    L.append("**First five** (all under 20 lines, all easy)\n")
+    L.append("**Your first five after \u201cHope\u201d**\n")
     for i, s in enumerate([
-        "Clifton, \u201cblessing the boats\u201d", "Herbert, \u201cLove (III)\u201d",
-        "Yeats, \u201cThe Lake Isle of Innisfree\u201d", "Dickinson, \u201cI'm Nobody! Who are you?\u201d",
-        "Berry, \u201cThe Peace of Wild Things\u201d"], 1):
+        "**[Herbert, \u201cLove (III)\u201d](#1-love-iii)** \u2014 eighteen lines, gentle dialogue, and a clear emotional turn",
+        "**[Clifton, \u201cblessing the boats\u201d](#4-blessing-the-boats)** \u2014 thirteen spare lines that move like a spoken blessing",
+        "**[Yeats, \u201cThe Lake Isle of Innisfree\u201d](#9-the-lake-isle-of-innisfree)** \u2014 three musical quatrains with strong sensory landmarks",
+        "**[Dickinson, \u201cI'm Nobody! Who are you?\u201d](#4-im-nobody-who-are-you)** \u2014 brief, playful, and rhythmically adhesive",
+        "**[Berry, \u201cThe Peace of Wild Things\u201d](#6-the-peace-of-wild-things)** \u2014 plainspoken free verse with a simple movement from fear to rest"], 1):
         L.append(f"{i}. {s}")
     L.append("\n**Next five** (still short, slightly more resistance)\n")
     for i, s in enumerate([
-        "Rossetti, \u201cRemember\u201d", "Walcott, \u201cLove After Love\u201d",
-        "Hopkins, \u201cSpring and Fall\u201d", "Housman, \u201cLoveliest of trees\u201d",
-        "Clifton, \u201cwon't you celebrate with me\u201d"], 6):
+        "[Rossetti, \u201cRemember\u201d](#8-remember)",
+        "[Walcott, \u201cLove After Love\u201d](#1-love-after-love)",
+        "[Hopkins, \u201cSpring and Fall\u201d](#7-spring-and-fall-to-a-young-child)",
+        "[Housman, \u201cLoveliest of trees\u201d](#10-loveliest-of-trees-the-cherry-now)",
+        "[Clifton, \u201cwon't you celebrate with me\u201d](#5-wont-you-celebrate-with-me)"], 6):
         L.append(f"{i}. {s}")
     L.append("\n**Then the ones worth the work**\n")
     for i, s in enumerate([
-        "Donne, \u201cBatter my heart\u201d", "Dickinson, \u201cThere's a certain Slant of light\u201d",
-        "Hopkins, \u201cGod's Grandeur\u201d", "Hardy, \u201cThe Darkling Thrush\u201d",
-        "Bass, \u201cThe Thing Is\u201d"], 11):
+        "[Donne, \u201cBatter my heart\u201d](#4-batter-my-heart-three-persond-god)",
+        "[Dickinson, \u201cThere's a certain Slant of light\u201d](#2-theres-a-certain-slant-of-light)",
+        "[Hopkins, \u201cGod's Grandeur\u201d](#5-gods-grandeur)",
+        "[Hardy, \u201cThe Darkling Thrush\u201d](#6-the-darkling-thrush)",
+        "[Bass, \u201cThe Thing Is\u201d](#2-the-thing-is)"], 11):
         L.append(f"{i}. {s}")
     L.append("\n**Method note.** The metrical poems (Herbert, Hopkins, Dickinson, Rossetti, "
              "Yeats, Housman, Hardy, Frost, Teasdale) go in fast and stay, because meter and "

@@ -210,42 +210,51 @@ and stays. <em>Moderate</em> means longer, or free verse with a strong logical s
 """
 
 ORDER = """
-<h1>A suggested memorization order</h1>
-<p>Early wins first, gradually increasing difficulty, keeping all three lines of
-feeling in rotation.</p>
+<h1>Recommended poems to start with</h1>
+<p><strong>Start with Emily Dickinson's <a href="cs0.xhtml">\u201cHope\u201d is the thing with feathers</a>.</strong>
+It is short, musical, and built on one image, so its meter and rhyme give you
+plenty of cues. If you already know it, begin with George Herbert's
+<a href="a1.xhtml">\u201cLove (III).\u201d</a></p>
 
-<p><strong>Where your three seeds fit.</strong> Dickinson's \u201cHope\u201d belongs in the first
+<p>The sequence below favors early wins, then gradually adds length and
+resistance while keeping the book's different threads of feeling in rotation.
+You do not need to follow it rigidly: a poem you urgently want to know is often
+easier to learn than a technically simpler poem you merely admire.</p>
+
+<p><strong>Where your three seeds fit.</strong> Dickinson's
+<a href="cs0.xhtml">\u201cHope\u201d</a> belongs in the first
 group \u2014 it is as easy as anything here, and if you don't already have it, get it
-first. Nye's \u201cKindness\u201d sits with the harder free verse around 12\u201315. Thompson's
-\u201cHound of Heaven\u201d is in a category of its own: 182 irregular lines, more than four
+first. Nye's <a href="bs0.xhtml">\u201cKindness\u201d</a> sits with the harder free verse
+around 12\u201315. Thompson's <a href="as0.xhtml">\u201cHound of Heaven\u201d</a> is in a
+category of its own: 182 irregular lines, more than four
 times the length of anything else. Don't start with it, and consider learning it in
 movements \u2014 the flight, the failed refuges, the surrender \u2014 rather than whole.</p>
 
-<h2>First five (all under twenty lines, all easy)</h2>
+<h2>Your first five after \u201cHope\u201d</h2>
 <ol>
-<li>Clifton, \u201cblessing the boats\u201d</li>
-<li>Herbert, \u201cLove (III)\u201d</li>
-<li>Yeats, \u201cThe Lake Isle of Innisfree\u201d</li>
-<li>Dickinson, \u201cI'm Nobody! Who are you?\u201d</li>
-<li>Berry, \u201cThe Peace of Wild Things\u201d</li>
+<li><strong><a href="a1.xhtml">Herbert, \u201cLove (III)\u201d</a></strong> \u2014 eighteen lines, gentle dialogue, and a clear emotional turn.</li>
+<li><strong><a href="b4.xhtml">Clifton, \u201cblessing the boats\u201d</a></strong> \u2014 thirteen spare lines that move like a spoken blessing.</li>
+<li><strong><a href="c9.xhtml">Yeats, \u201cThe Lake Isle of Innisfree\u201d</a></strong> \u2014 three musical quatrains with strong sensory landmarks.</li>
+<li><strong><a href="c4.xhtml">Dickinson, \u201cI'm Nobody! Who are you?\u201d</a></strong> \u2014 brief, playful, and rhythmically adhesive.</li>
+<li><strong><a href="b6.xhtml">Berry, \u201cThe Peace of Wild Things\u201d</a></strong> \u2014 plainspoken free verse with a simple movement from fear to rest.</li>
 </ol>
 
 <h2>Next five (still short, slightly more resistance)</h2>
 <ol start="6">
-<li>Rossetti, \u201cRemember\u201d</li>
-<li>Walcott, \u201cLove After Love\u201d</li>
-<li>Hopkins, \u201cSpring and Fall\u201d</li>
-<li>Housman, \u201cLoveliest of trees\u201d</li>
-<li>Clifton, \u201cwon't you celebrate with me\u201d</li>
+<li><a href="c8.xhtml">Rossetti, \u201cRemember\u201d</a></li>
+<li><a href="b1.xhtml">Walcott, \u201cLove After Love\u201d</a></li>
+<li><a href="c7.xhtml">Hopkins, \u201cSpring and Fall\u201d</a></li>
+<li><a href="c10.xhtml">Housman, \u201cLoveliest of trees\u201d</a></li>
+<li><a href="b5.xhtml">Clifton, \u201cwon't you celebrate with me\u201d</a></li>
 </ol>
 
 <h2>Then the ones worth the work</h2>
 <ol start="11">
-<li>Donne, \u201cBatter my heart\u201d</li>
-<li>Dickinson, \u201cThere's a certain Slant of light\u201d</li>
-<li>Hopkins, \u201cGod's Grandeur\u201d</li>
-<li>Hardy, \u201cThe Darkling Thrush\u201d</li>
-<li>Bass, \u201cThe Thing Is\u201d</li>
+<li><a href="a4.xhtml">Donne, \u201cBatter my heart\u201d</a></li>
+<li><a href="c2.xhtml">Dickinson, \u201cThere's a certain Slant of light\u201d</a></li>
+<li><a href="a5.xhtml">Hopkins, \u201cGod's Grandeur\u201d</a></li>
+<li><a href="c6.xhtml">Hardy, \u201cThe Darkling Thrush\u201d</a></li>
+<li><a href="b2.xhtml">Bass, \u201cThe Thing Is\u201d</a></li>
 </ol>
 
 <hr/>
@@ -325,9 +334,9 @@ def build(outpath):
 
         nav_entries.append((cat["title"], catfile, children))
 
-    files["order.xhtml"] = page("A suggested memorization order", ORDER)
+    files["order.xhtml"] = page("Recommended poems to start with", ORDER)
     spine.append("order.xhtml")
-    nav_entries.append(("A suggested memorization order", "order.xhtml", []))
+    nav_entries.append(("Recommended poems to start with", "order.xhtml", []))
 
     files["colophon.xhtml"] = page("Colophon", colophon(counts))
     spine.append("colophon.xhtml")

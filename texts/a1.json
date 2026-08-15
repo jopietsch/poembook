@@ -1,5 +1,26 @@
 {
   "wikisource_page": "The Temple: Sacred Poems and Private Ejaculations/Love (III)",
   "search": "Love III George Herbert The Temple",
-  "url": "https://en.wikisource.org/wiki/The_Temple:_Sacred_Poems_and_Private_Ejaculations/Love_(III)"
+  "url": "https://en.wikisource.org/wiki/The_Temple:_Sacred_Poems_and_Private_Ejaculations/Love_(III)",
+  "verification": {
+    "structural": {
+      "status": "passed",
+      "checked_at": "2026-08-11T07:11:25+00:00",
+      "method": "poembook structural checks",
+      "schema_version": 1
+    },
+    "source_comparison": {
+      "status": "passed",
+      "checked_at": "2026-08-14",
+      "method": "word-for-word multi-source comparison by Codex; human editorial signoff still required",
+      "chosen_edition": "The Temple (1633) spelling and punctuation",
+      "sources": [
+        "https://ccel.org/ccel/herbert/temple/Love3.html",
+        "https://poets.org/poem/love-iii",
+        "https://www.poetryfoundation.org/poems/44367/love-iii"
+      ],
+      "notes": "Restored the missing first six lines and removed FINIS and following liturgical text. Retained 1633 forms such as Guiltie, sinne, unkinde, ungratefull, sayes, and any thing; modern sources normalize these and add quotation marks."
+    }
+  },
+  "status": "structurally_valid"
 }
