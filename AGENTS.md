@@ -2,7 +2,7 @@
 
 ## Project Structure & Module Organization
 
-This is a small Python 3.10+ project built from top-level modules:
+This Python 3.10+ project uses top-level modules:
 
 - `poems.py` defines categories, poem metadata, rights status, and slugs.
 - `poembook_cli.py` provides audit, build, practice, progress, and verification commands.
@@ -11,11 +11,11 @@ This is a small Python 3.10+ project built from top-level modules:
 - `texts/` contains poem text (`<slug>.txt`) and source/status metadata (`<slug>.json`).
 - `tests/` contains the pytest suite. Generated outputs are `poems-to-memorize.epub` and `poems-to-memorize.md`.
 
-Keep catalog changes in `poems.py`; do not duplicate poem metadata in a renderer. Preserve unrelated local changes, especially editorial verification records under `texts/`.
+Keep catalog changes in `poems.py`; do not duplicate metadata in renderers. Preserve editorial verification records under `texts/`.
 
 ## Build, Test, and Development Commands
 
-Create an environment with `python3 -m venv .venv`, activate it, and run `pip install -e '.[dev]'`.
+Set up a virtual environment, then run `pip install -e '.[dev]'`.
 
 - `poembook build --format all` rebuilds EPUB and Markdown editions.
 - `python3 -m pytest -q` runs all automated tests.
@@ -25,15 +25,19 @@ Create an environment with `python3 -m venv .venv`, activate it, and run `pip in
 
 ## Coding Style & Naming Conventions
 
-Use four-space indentation, UTF-8, descriptive `snake_case` names, and small functions. Follow existing Python and PEP 8 conventions; no formatter or linter is currently configured. Poem slugs combine a category ID and display number (`a1`, `cs0`). Use `pathlib` in new code where practical, while matching nearby style when editing existing modules.
+Use four-space indentation, UTF-8, descriptive `snake_case` names, small functions, and PEP 8 conventions. No formatter or linter is configured. Poem slugs combine a category and display number (`a1`, `cs0`). Prefer `pathlib` in new code.
 
 ## Testing Guidelines
 
-Tests use pytest and live in `tests/test_*.py`; test functions begin with `test_`. Add focused tests for catalog invariants, parsing, practice modes, or renderer behavior affected by a change. There is no formal coverage threshold. Always run the full suite and rebuild affected formats before submitting.
+Tests use pytest in `tests/test_*.py`; functions begin with `test_`. Add focused regression tests for affected behavior. There is no coverage threshold. Run the full suite and rebuild affected formats before submitting.
 
 ## Commit & Pull Request Guidelines
 
 Recent commits use short, imperative summaries such as `Add batch structural and editorial verification`. Keep each commit focused. Pull requests should explain the user-visible effect, list validation commands, and call out copyright, source, or edition decisions. Include screenshots only for material rendering changes.
+
+### Required Pre-Commit Review
+
+Every commit requires a code review of the complete staged diff. Before committing, inspect `git diff --cached`, check correctness, regressions, tests, generated artifacts, and source or copyright implications, then resolve every actionable finding. Rerun the relevant validation after fixes. Do not commit while a known review finding remains unresolved; document any intentionally accepted risk in the commit message or pull request. This requirement also applies to documentation-only and generated-file commits.
 
 ## Copyright & Configuration
 
