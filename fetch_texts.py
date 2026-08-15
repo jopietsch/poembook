@@ -185,6 +185,20 @@ def normalize_candidate(cat, poem, text):
     if not expected:
         return text
     lines = text.splitlines()
+    marker = poem.get("extract_after")
+    if marker:
+        for i, line in enumerate(lines):
+            if marker in line:
+                remainder = line.split(marker, 1)[1].strip()
+                lines = ([remainder] if remainder else []) + lines[i + 1:]
+                chosen, count = [], 0
+                for candidate in lines:
+                    if candidate.strip():
+                        count += 1
+                    chosen.append(candidate)
+                    if count == expected:
+                        break
+                return "\n".join(chosen).strip()
     nonblank = [i for i, line in enumerate(lines) if line.strip()]
     excess = len(nonblank) - expected
     if 0 < excess <= 4:

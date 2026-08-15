@@ -2,13 +2,24 @@
   "source": "Poems That Every Child Should Know/The World Is Too Much With Us",
   "search": "The world is too much with us Wordsworth",
   "url": "https://en.wikisource.org/wiki/Poems_That_Every_Child_Should_Know/The_World_Is_Too_Much_With_Us",
-  "status": "structurally_valid",
+  "status": "source_compared",
   "verification": {
     "structural": {
       "status": "passed",
       "checked_at": "2026-08-11T07:11:26+00:00",
       "method": "poembook structural checks",
       "schema_version": 1
+    },
+    "source_comparison": {
+      "status": "passed",
+      "checked_at": "2026-08-14",
+      "method": "word-for-word source comparison by Codex; human editorial signoff still required",
+      "chosen_edition": "Wordsworth text in modern typography",
+      "sources": [
+        "https://www.poetryfoundation.org/poems/45564/the-world-is-too-much-with-us",
+        "https://en.wikisource.org/wiki/The_World_Is_Too_Much_With_Us"
+      ],
+      "notes": "Restored the missing opening line and removed a trailing author credit."
     }
   }
 }

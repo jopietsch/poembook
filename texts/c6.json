@@ -8,6 +8,18 @@
       "checked_at": "2026-08-11T07:11:25+00:00",
       "method": "poembook structural checks",
       "schema_version": 1
+    },
+    "source_comparison": {
+      "status": "passed",
+      "checked_at": "2026-08-15T04:05:56+00:00",
+      "method": "multi-source comparison by Codex; human editorial signoff still required",
+      "schema_version": 1,
+      "chosen_edition": "Thomas Hardy, Poems of the Past and the Present",
+      "compared_sources": [
+        "https://en.wikisource.org/wiki/The_Darkling_Thrush",
+        "https://poets.org/poem/darkling-thrush"
+      ],
+      "notes": "Compared all four octaves; retained source spelling and capitalization."
     }
   },
   "status": "structurally_valid"

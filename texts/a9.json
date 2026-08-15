@@ -8,7 +8,18 @@
       "checked_at": "2026-08-11T07:11:25+00:00",
       "method": "poembook structural checks",
       "schema_version": 1
+    },
+    "source_comparison": {
+      "status": "passed",
+      "checked_at": "2026-08-14",
+      "method": "word-for-word source comparison by Codex; human editorial signoff still required",
+      "chosen_edition": "Christina Rossetti text in modern typography",
+      "sources": [
+        "https://www.poetryfoundation.org/poems/45002/up-hill",
+        "https://en.wikisource.org/wiki/Poems_(Rossetti,_1901)/Up-Hill"
+      ],
+      "notes": "Removed title matter fused to the first line and compared all sixteen lines."
     }
   },
-  "status": "structurally_valid"
+  "status": "source_compared"
 }

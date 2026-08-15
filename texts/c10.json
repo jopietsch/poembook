@@ -8,7 +8,18 @@
       "checked_at": "2026-08-11T07:11:25+00:00",
       "method": "poembook structural checks",
       "schema_version": 1
+    },
+    "source_comparison": {
+      "status": "passed",
+      "checked_at": "2026-08-14",
+      "method": "word-for-word source comparison by Codex; human editorial signoff still required",
+      "chosen_edition": "A Shropshire Lad text",
+      "sources": [
+        "https://www.poetryfoundation.org/poems/44411/a-shropshire-lad-2-loveliest-of-trees-the-cherry-now",
+        "https://en.wikisource.org/wiki/A_Shropshire_Lad/II"
+      ],
+      "notes": "Restored the missing first line and removed a trailing ornament."
     }
   },
-  "status": "structurally_valid"
+  "status": "source_compared"
 }

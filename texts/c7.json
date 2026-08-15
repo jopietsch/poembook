@@ -1,5 +1,19 @@
 {
   "wikisource_page": "Poems of Gerard Manley Hopkins/Spring and Fall",
   "search": "Spring and Fall to a young child Hopkins",
-  "url": "https://en.wikisource.org/wiki/Poems_of_Gerard_Manley_Hopkins/Spring_and_Fall"
+  "url": "https://en.wikisource.org/wiki/Poems_of_Gerard_Manley_Hopkins/Spring_and_Fall",
+  "status": "source_compared",
+  "verification": {
+    "source_comparison": {
+      "status": "passed",
+      "checked_at": "2026-08-14",
+      "method": "word-for-word multi-source comparison by Codex; human editorial signoff still required",
+      "chosen_edition": "Hopkins, Poems and Prose (Penguin Classics, 1985) text",
+      "sources": [
+        "https://www.poetryfoundation.org/poems/44400/spring-and-fall",
+        "https://en.wikisource.org/wiki/Poems_of_Gerard_Manley_Hopkins/Spring_and_Fall"
+      ],
+      "notes": "Removed a page number and title matter; corrected accents and punctuation against the edition-based Poetry Foundation text."
+    }
+  }
 }

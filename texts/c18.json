@@ -9,6 +9,18 @@
       "checked_at": "2026-08-11T07:11:25+00:00",
       "method": "poembook structural checks",
       "schema_version": 1
+    },
+    "source_comparison": {
+      "status": "passed",
+      "checked_at": "2026-08-15T04:05:56+00:00",
+      "method": "multi-source comparison by Codex; human editorial signoff still required",
+      "schema_version": 1,
+      "chosen_edition": "John Keats, complete poetical works text",
+      "compared_sources": [
+        "https://en.wikisource.org/wiki/The_complete_poetical_works_and_letters_of_John_Keats/Sonnet:_%27When_I_have_fears_that_I_may_cease_to_be%27",
+        "https://www.poetryfoundation.org/poems/44488/when-i-have-fears-that-i-may-cease-to-be"
+      ],
+      "notes": "Compared wording and lineation; retained historical elisions and accent marks."
     }
   }
 }

@@ -9,6 +9,18 @@
       "checked_at": "2026-08-11T07:11:25+00:00",
       "method": "poembook structural checks",
       "schema_version": 1
+    },
+    "source_comparison": {
+      "status": "passed",
+      "checked_at": "2026-08-15T04:05:56+00:00",
+      "method": "multi-source comparison by Codex; human editorial signoff still required",
+      "schema_version": 1,
+      "chosen_edition": "William Shakespeare, modernized Sonnet 73 text",
+      "compared_sources": [
+        "https://en.wikisource.org/wiki/Shake-speares_Sonnets,_Never_before_Imprinted/Sonnet_73",
+        "https://poets.org/poem/time-year-thou-mayst-me-behold-sonnet-73"
+      ],
+      "notes": "Replaced OCR-corrupted 1609 transcription with the clean modernized Poets.org reading."
     }
   }
 }

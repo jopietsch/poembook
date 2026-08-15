@@ -8,6 +8,18 @@
       "checked_at": "2026-08-11T07:11:25+00:00",
       "method": "poembook structural checks",
       "schema_version": 1
+    },
+    "source_comparison": {
+      "status": "passed",
+      "checked_at": "2026-08-15T04:05:56+00:00",
+      "method": "multi-source comparison by Codex; human editorial signoff still required",
+      "schema_version": 1,
+      "chosen_edition": "Francis Thompson, Poems (1922 Project Gutenberg edition)",
+      "compared_sources": [
+        "https://en.wikisource.org/wiki/Poems_(Thompson)/The_Hound_of_Heaven",
+        "https://www.gutenberg.org/files/30730/30730-h/30730-h.htm"
+      ],
+      "notes": "Compared the complete 182-line text; preserved edition-specific accents and punctuation."
     }
   },
   "status": "structurally_valid"

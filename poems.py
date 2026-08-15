@@ -204,7 +204,8 @@ POEMS = {
          difficulty="Moderate\u2013Hard",
          links=[("poets.org", "https://poets.org/poem/journey-magi"),
                 ("Eliot reading it himself \u2014 Poetry Archive", "https://poetryarchive.org/poem/journey-magi/")],
-         pd=True, ws="Journey of the Magi T. S. Eliot"),
+         pd=True, ws="Journey of the Magi T. S. Eliot",
+         extract_after="JOURNEY OF THE MAGI"),
 ],
 
 "b": [

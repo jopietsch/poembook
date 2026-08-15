@@ -1,5 +1,20 @@
 {
   "wikisource_page": "Dictionary of National Biography, 1885-1900/Vaughan, Henry (1622-1695)",
   "search": "They are all gone into the world of light Vaughan",
-  "url": "https://en.wikisource.org/wiki/Dictionary_of_National_Biography,_1885-1900/Vaughan,_Henry_(1622-1695)"
+  "url": "https://en.wikisource.org/wiki/Dictionary_of_National_Biography,_1885-1900/Vaughan,_Henry_(1622-1695)",
+  "status": "source_compared",
+  "verification": {
+    "source_comparison": {
+      "status": "passed",
+      "checked_at": "2026-08-14",
+      "method": "word-for-word multi-source comparison by Codex; human editorial signoff still required",
+      "chosen_edition": "Silex Scintillans (1655), in modern typography",
+      "sources": [
+        "https://rpo.library.utoronto.ca/content/they-are-all-gone-world-light",
+        "https://www.poetryfoundation.org/poems/45432/they-are-all-gone-into-the-world-of-light",
+        "https://www.gutenberg.org/ebooks/28375"
+      ],
+      "notes": "Replaced an unrelated Dictionary of National Biography scrape with the complete forty-line poem."
+    }
+  }
 }

@@ -8,7 +8,18 @@
       "checked_at": "2026-08-11T07:11:25+00:00",
       "method": "poembook structural checks",
       "schema_version": 1
+    },
+    "source_comparison": {
+      "status": "passed",
+      "checked_at": "2026-08-14",
+      "method": "word-for-word source comparison by Codex; human editorial signoff still required",
+      "chosen_edition": "R. W. Franklin reading text (Fr320)",
+      "sources": [
+        "https://www.poetryfoundation.org/poems/45723/theres-a-certain-slant-of-light-320",
+        "https://en.wikisource.org/wiki/Poems:_Third_Series_(Dickinson)/Nature/There%27s_a_certain_slant_of_light"
+      ],
+      "notes": "Replaced the normalized early-edition text; restored capitals, dashes, and wording."
     }
   },
-  "status": "structurally_valid"
+  "status": "source_compared"
 }

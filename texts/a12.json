@@ -1,5 +1,20 @@
 {
-  "wikisource_page": "The European Caravan/England and Ireland/T. S. Eliot",
+  "source": "The European Caravan/England and Ireland/T. S. Eliot",
   "search": "Journey of the Magi T. S. Eliot",
-  "url": "https://en.wikisource.org/wiki/The_European_Caravan/England_and_Ireland/T._S._Eliot"
+  "url": "https://en.wikisource.org/wiki/The_European_Caravan/England_and_Ireland/T._S._Eliot",
+  "status": "source_compared",
+  "verification": {
+    "source_comparison": {
+      "status": "passed",
+      "checked_at": "2026-08-14",
+      "method": "word-for-word multi-source comparison by Codex; human editorial signoff still required",
+      "chosen_edition": "Journey of the Magi (Faber & Gwyer, 1927) text",
+      "sources": [
+        "https://poets.org/poem/journey-magi",
+        "https://poetryarchive.org/poem/journey-magi/",
+        "https://en.wikisource.org/wiki/The_European_Caravan/England_and_Ireland/T._S._Eliot"
+      ],
+      "notes": "Extracted the forty-three-line poem from a larger anthology page and corrected small wording and punctuation differences against the first-publication text."
+    }
+  }
 }

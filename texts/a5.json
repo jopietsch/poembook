@@ -8,6 +8,18 @@
       "checked_at": "2026-08-11T07:11:25+00:00",
       "method": "poembook structural checks",
       "schema_version": 1
+    },
+    "source_comparison": {
+      "status": "passed",
+      "checked_at": "2026-08-15T04:05:56+00:00",
+      "method": "multi-source comparison by Codex; human editorial signoff still required",
+      "schema_version": 1,
+      "chosen_edition": "Gerard Manley Hopkins, Poems (1918)",
+      "compared_sources": [
+        "https://en.wikisource.org/wiki/Poems_of_Gerard_Manley_Hopkins/God%27s_Grandeur",
+        "https://www.poetryfoundation.org/poems/44395/gods-grandeur"
+      ],
+      "notes": "Compared wording, lineation, accents, and punctuation."
     }
   },
   "status": "structurally_valid"

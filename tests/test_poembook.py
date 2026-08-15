@@ -1,5 +1,6 @@
 from poems import CATEGORIES, POEMS, all_poems, slug
-from poembook_cli import expected_lines, practice_text, record_verification, verification_level
+from poembook_cli import expected_lines, practice_text, record_verification, text_issues, verification_level
+from fetch_texts import normalize_candidate
 
 
 def test_catalog_has_unique_slugs_and_required_fields():
@@ -36,3 +37,19 @@ def test_verification_levels_are_distinct():
     record_verification(meta, "editorial", "test review")
     assert verification_level(meta) == "editorial"
     assert meta["status"] == "verified"
+
+
+def test_source_comparison_sits_between_structural_and_editorial_review():
+    meta = {"verification": {"structural": {"status": "passed"},
+                             "source_comparison": {"status": "passed"}}}
+    assert verification_level(meta) == "source"
+
+
+def test_poem_language_is_not_mistaken_for_biographical_boilerplate():
+    assert text_issues({}, {"form": "4 lines"}, "It is the blight man was born for,\nOne\nTwo\nThree") == []
+
+
+def test_named_anthology_section_is_extracted_to_expected_length():
+    poem = {"form": "3 lines", "extract_after": "POEM TITLE"}
+    source = "unrelated prose\nPOEM TITLEFirst line\nSecond line\nThird line\ntrailing notes"
+    assert normalize_candidate({}, poem, source) == "First line\nSecond line\nThird line"

@@ -2,13 +2,24 @@
   "source": "Project Gutenberg #38594: THE SPANISH DANCER",
   "search": null,
   "url": "https://www.gutenberg.org/ebooks/38594",
-  "status": "structurally_valid",
+  "status": "source_compared",
   "verification": {
     "structural": {
       "status": "passed",
       "checked_at": "2026-08-11T07:11:26+00:00",
       "method": "poembook structural checks",
       "schema_version": 1
+    },
+    "source_comparison": {
+      "status": "passed",
+      "checked_at": "2026-08-14",
+      "method": "exact comparison by Codex; human editorial signoff still required",
+      "chosen_edition": "Jessie Lemont translation, Poems (1918)",
+      "sources": [
+        "https://www.gutenberg.org/ebooks/38594",
+        "https://www.gutenberg.org/cache/epub/38594/pg38594-images.html"
+      ],
+      "notes": "Compared with the named 1918 edition; this validates the selected translation, not later translations."
     }
   }
 }

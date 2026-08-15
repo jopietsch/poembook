@@ -42,10 +42,12 @@ def text_issues(cat, poem, text):
     if len(text) > 15000 and (not expected or expected < 100):
         issues.append("implausibly long")
     first = lines[0].strip() if lines else ""
-    suspicious = ("versions of ", "was born", "dictionary of national biography",
+    suspicious = ("versions of ", "dictionary of national biography",
                   "courtesy of", "table of contents")
     if any(term in text.lower() for term in suspicious):
         issues.append("likely page boilerplate or unrelated prose")
+    if re.search(r"\bwas born (?:on|in|at)\b", text.lower()):
+        issues.append("likely biographical prose")
     if re.fullmatch(r"\d+", first):
         issues.append("starts with a page number")
     return issues
@@ -72,7 +74,10 @@ def audit():
             for issue in text_issues(cat, poem, text):
                 warnings.append(f"{sid}: {issue}")
             meta, _ = load_text_meta(path)
-            if verification_level(meta) != "editorial":
+            level = verification_level(meta)
+            if level == "source":
+                warnings.append(f"{sid}: source-compared; human editorial signoff pending")
+            elif level != "editorial":
                 warnings.append(f"{sid}: text is not editorially verified")
     return errors, warnings
 
@@ -98,6 +103,8 @@ def verification_level(meta):
         return "editorial"
     if meta.get("status") == "verified":  # v0 metadata migration
         return "editorial"
+    if verification.get("source_comparison", {}).get("status") == "passed":
+        return "source"
     if verification.get("structural", {}).get("status") == "passed":
         return "structural"
     return None

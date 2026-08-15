@@ -1,5 +1,16 @@
 {
   "wikisource_page": "The Life and Letters of Emily Dickinson/Chapter 7",
   "search": "Tell all the truth but tell it slant Dickinson",
-  "url": "https://en.wikisource.org/wiki/The_Life_and_Letters_of_Emily_Dickinson/Chapter_7"
+  "url": "https://en.wikisource.org/wiki/The_Life_and_Letters_of_Emily_Dickinson/Chapter_7",
+  "status": "source_compared",
+  "verification": {
+    "source_comparison": {
+      "status": "passed",
+      "checked_at": "2026-08-14",
+      "method": "word-for-word source comparison by Codex; human editorial signoff still required",
+      "chosen_edition": "R. W. Franklin reading text (Fr1263)",
+      "sources": ["https://www.poetryfoundation.org/poems/56824/tell-all-the-truth-but-tell-it-slant-1263"],
+      "notes": "Replaced an unrelated forty-nine-line excerpt from Dickinson's letters with the complete eight-line Franklin text."
+    }
+  }
 }

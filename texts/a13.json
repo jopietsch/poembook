@@ -9,6 +9,18 @@
       "checked_at": "2026-08-11T07:11:25+00:00",
       "method": "poembook structural checks",
       "schema_version": 1
+    },
+    "source_comparison": {
+      "status": "passed",
+      "checked_at": "2026-08-15T04:05:56+00:00",
+      "method": "multi-source comparison by Codex; human editorial signoff still required",
+      "schema_version": 1,
+      "chosen_edition": "King James Version, Psalm 139:7–12",
+      "compared_sources": [
+        "https://en.wikisource.org/wiki/Bible_(King_James_Version,_1611)/Psalmes",
+        "https://www.biblegateway.com/passage/?search=Psalm%20139%3A7-12&version=KJV"
+      ],
+      "notes": "Compared verse wording; omitted verse numbers by design."
     }
   }
 }

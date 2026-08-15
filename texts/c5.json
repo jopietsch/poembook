@@ -1,5 +1,19 @@
 {
   "wikisource_page": "Poems (Dickinson)/The Chariot",
   "search": "Because I could not stop for Death Dickinson",
-  "url": "https://en.wikisource.org/wiki/Poems_(Dickinson)/The_Chariot"
+  "url": "https://en.wikisource.org/wiki/Poems_(Dickinson)/The_Chariot",
+  "status": "source_compared",
+  "verification": {
+    "source_comparison": {
+      "status": "passed",
+      "checked_at": "2026-08-14",
+      "method": "word-for-word multi-edition comparison by Codex; human editorial signoff still required",
+      "chosen_edition": "R. W. Franklin reading text (Fr479)",
+      "sources": [
+        "https://www.poetryfoundation.org/poems/47652/because-i-could-not-stop-for-death-479",
+        "https://en.wikisource.org/wiki/Poems_(Dickinson)/The_Chariot"
+      ],
+      "notes": "Replaced the altered 1890 Chariot version with Franklin's twenty-four-line text, restoring the omitted fourth stanza, dashes, capitals, and wording."
+    }
+  }
 }

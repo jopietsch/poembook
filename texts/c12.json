@@ -8,6 +8,18 @@
       "checked_at": "2026-08-11T07:11:25+00:00",
       "method": "poembook structural checks",
       "schema_version": 1
+    },
+    "source_comparison": {
+      "status": "passed",
+      "checked_at": "2026-08-15T04:05:56+00:00",
+      "method": "multi-source comparison by Codex; human editorial signoff still required",
+      "schema_version": 1,
+      "chosen_edition": "Sara Teasdale, Flame and Shadow (1920)",
+      "compared_sources": [
+        "https://en.wikisource.org/wiki/Flame_and_Shadow/%22There_Will_Come_Soft_Rains%22",
+        "https://poets.org/poem/there-will-come-soft-rains"
+      ],
+      "notes": "Compared all twelve lines and punctuation; removed extraction whitespace."
     }
   },
   "status": "structurally_valid"
