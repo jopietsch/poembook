@@ -156,6 +156,19 @@ def editorial_prompt(sid, poem, path, meta):
 def practice_text(text, mode):
     if mode == "full":
         return text
+    if mode == "stanza-starts":
+        stanzas = [stanza for stanza in text.replace("\r", "").split("\n\n")
+                   if stanza.strip()]
+        return "\n\n".join(stanza.splitlines()[0].strip() for stanza in stanzas)
+    if mode == "structure":
+        stanzas = [stanza for stanza in text.replace("\r", "").split("\n\n")
+                   if stanza.strip()]
+        output = []
+        for index, stanza in enumerate(stanzas, 1):
+            line_count = len(stanza.splitlines())
+            unit = "line" if line_count == 1 else "lines"
+            output.append(f"Stanza {index} — {line_count} {unit}")
+        return "\n".join(output)
     output = []
     for line in text.splitlines():
         if not line.strip():
@@ -188,12 +201,21 @@ def main(argv=None):
     audit_parser.add_argument("--strict", action="store_true", help="treat warnings as failure")
     build_parser = commands.add_parser("build", help="build EPUB, Markdown, or both")
     build_parser.add_argument("--format", choices=("epub", "markdown", "all"), default="all")
+    build_parser.add_argument("--edition", choices=("browse", "memorize", "all"), default="all",
+                              help="EPUB edition(s) to build; Markdown is always the browse edition")
     practice_parser = commands.add_parser("practice", help="print a memorization aid")
     practice_parser.add_argument("slug")
-    practice_parser.add_argument("--mode", choices=("full", "first-words", "initials", "blanks"), default="first-words")
+    practice_parser.add_argument(
+        "--mode",
+        choices=("full", "stanza-starts", "first-words", "initials", "structure", "blanks"),
+        default="first-words",
+    )
     status_parser = commands.add_parser("status", help="show or update memorization status")
     status_parser.add_argument("slug", nargs="?")
     status_parser.add_argument("state", nargs="?", choices=("want-to-learn", "learning", "memorized"))
+    review_parser = commands.add_parser("review", help="record a recall result and schedule review")
+    review_parser.add_argument("slug")
+    review_parser.add_argument("rating", choices=("easy", "hesitant", "failed"))
     verify_parser = commands.add_parser("verify", help="structurally check and editorially review texts")
     verify_parser.add_argument("slug", nargs="?")
     verify_parser.add_argument("--all", action="store_true", help="check all texts, then open a resumable review queue")
@@ -212,8 +234,14 @@ def main(argv=None):
     if args.command == "build":
         if args.format in ("epub", "all"):
             from build_epub import build
-            counts = build(str(ROOT / "poems-to-memorize.epub"))
-            print(f"wrote poems-to-memorize.epub ({counts['total']} poems)")
+            editions = ("browse", "memorize") if args.edition == "all" else (args.edition,)
+            outputs = {
+                "browse": ROOT / "poembook-browse.epub",
+                "memorize": ROOT / "poembook-memorize.epub",
+            }
+            for edition in editions:
+                counts = build(str(outputs[edition]), edition=edition)
+                print(f"wrote {outputs[edition].name} ({counts['total']} poems)")
         if args.format in ("markdown", "all"):
             from make_markdown import main as markdown_main
             old = sys.argv
@@ -235,10 +263,35 @@ def main(argv=None):
         data = load_progress()
         if args.slug and args.state:
             find_poem(args.slug)
-            data[args.slug] = {"state": args.state}
+            entry = data.setdefault(args.slug, {})
+            entry["state"] = args.state
+            entry["updated_at"] = datetime.date.today().isoformat()
             save_progress(data)
         for sid, value in sorted(data.items()):
             print(f"{sid:<6} {value['state']}")
+        return 0
+    if args.command == "review":
+        find_poem(args.slug)
+        data = load_progress()
+        entry = data.setdefault(args.slug, {"state": "learning"})
+        today = datetime.date.today()
+        previous = int(entry.get("review_interval_days", 1))
+        if args.rating == "easy":
+            interval = min(max(previous * 2, 3), 60)
+            entry["state"] = "memorized"
+        elif args.rating == "hesitant":
+            interval = 1
+        else:
+            interval = 0
+            entry["state"] = "learning"
+        entry.update({
+            "last_review": today.isoformat(),
+            "last_rating": args.rating,
+            "review_interval_days": interval,
+            "next_review": (today + datetime.timedelta(days=interval)).isoformat(),
+        })
+        save_progress(data)
+        print(f"{args.slug}: {args.rating}; next review {entry['next_review']}")
         return 0
     if args.command == "verify":
         if bool(args.slug) == bool(args.all):

@@ -12,6 +12,8 @@ Usage:  python3 make_markdown.py [-o poems-to-memorize.md]
 import os
 import re
 import sys
+import datetime
+from pathlib import Path
 
 from poems import CATEGORIES, POEMS, FURTHER, slug
 
@@ -54,10 +56,16 @@ def main():
                 if p.get("pd") and load_text(c["id"], p))
     n_c = sum(1 for c in CATEGORIES for p in POEMS[c["id"]] if not p.get("pd"))
     n_total = n_pd + n_c
+    source_paths = [Path(__file__), Path(HERE) / "poems.py"]
+    source_paths.extend(Path(TEXTDIR).glob("*"))
+    latest_mtime = max(path.stat().st_mtime for path in source_paths if path.is_file())
+    updated = datetime.datetime.fromtimestamp(latest_mtime).astimezone().strftime(
+        "%Y-%m-%d %I:%M %p %Z").replace(" 0", " ", 1)
 
     L = []
     L.append("# Poems to Cherish and Memorize")
     L.append("### A curated expansion from three seed poems\n")
+    L.append(f"*Last updated {updated}*\n")
     L.append("**Original seeds** \u2014 each heads one of the first three categories as entry **\u00a70**:")
     L.append("- Francis Thompson, \u201cThe Hound of Heaven\u201d (1890/1893) \u2192 Category A")
     L.append("- Naomi Shihab Nye, \u201cKindness\u201d (coll. 1995) \u2192 Category B")
@@ -119,11 +127,11 @@ def main():
              "**title, author, date, source, form, why it belongs, memorization difficulty, "
              "and a link**.\n")
     L.append(f"**Which texts are here.** {n_pd} of the {n_total} are public domain in the US and "
-             f"{n_txt} currently have their full text included. The {n_c} in the Kindness "
-             "category are under active copyright and appear as commentary and authorized "
-             "links only.\n")
-    L.append("**Check the texts before you commit them.** These were pulled from Wikisource "
-             "by script \u2014 more reliable than most of what floats around the web, but not "
+             f"{n_txt} currently have their full text included. The remaining {n_c} entries "
+             "are under active copyright and appear as commentary and authorized links only.\n")
+    L.append("**Check the texts before you commit them.** These were extracted by script "
+             "from recorded Wikisource or Project Gutenberg editions \u2014 more reliable than "
+             "most of what floats around the web, but not "
              "infallible, and it fails exactly where it matters for memorization: "
              "Dickinson's dashes and capitals, Hopkins's stress accents (*sh\u00e9er pl\u00f3d*, "
              "*unpertherb\u00e8d*), Herbert's 1633 spelling. Where a reading matters, check it "
@@ -245,8 +253,7 @@ def main():
 
     L.append("# Colophon\n")
     L.append(f"{n_total} poems: {n_txt} with full text included ({n_pd} are public domain in the "
-             f"United States), {n_c} under copyright and given as commentary and links only. "
-             "All links checked at time of writing.\n")
+             f"United States), {n_c} under copyright and given as commentary and links only.\n")
     L.append("Public-domain status noted throughout is for the United States and may differ "
              "where you are. The UK and EU generally use life-of-author-plus-70, which "
              "affects Hopkins, Hardy, Yeats, Teasdale, Frost, and Eliot differently \u2014 "

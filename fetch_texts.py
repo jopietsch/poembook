@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-fetch_texts.py -- retrieve the public-domain poem texts from Wikisource.
+fetch_texts.py -- retrieve public-domain poem texts from recorded source editions.
 
-Only the 26 poems marked pd=True in poems.py are fetched. The 13 in the
-"Kindness" category are under active copyright and are never touched.
+Only poems marked pd=True in poems.py are fetched. Copyrighted poems, including
+the entire "Kindness" thread, are never touched.
 
 This is deliberately slow and polite. Wikimedia rate-limits anonymous API
 clients hard and returns 429 if you hammer it. So:

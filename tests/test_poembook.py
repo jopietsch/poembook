@@ -2,9 +2,10 @@ import json
 import zipfile
 from pathlib import Path
 
+import poembook_cli
 from build_epub import build
 from poems import CATEGORIES, POEMS, all_poems, slug
-from poembook_cli import audit, expected_lines, practice_text, record_verification, text_issues, verification_level
+from poembook_cli import audit, expected_lines, main, practice_text, record_verification, text_issues, verification_level
 from fetch_texts import normalize_candidate
 
 
@@ -25,6 +26,14 @@ def test_every_category_has_poems():
     assert all(POEMS[cat["id"]] for cat in CATEGORIES)
 
 
+def test_category_rights_summaries_match_catalog():
+    categories = {cat["id"]: cat for cat in CATEGORIES}
+    assert all(not poem["pd"] for poem in POEMS["b"])
+    assert "All poems in this thread are under active copyright" in categories["b"]["intro"]
+    assert any(not poem["pd"] for poem in POEMS["a"])
+    assert "Every poem in this category is in the public domain" not in categories["a"]["intro"]
+
+
 def test_line_count_parser():
     assert expected_lines({"form": "14 lines, sonnet"}) == 14
     assert expected_lines({"form": "~20 lines"}) is None
@@ -35,6 +44,12 @@ def test_practice_modes_preserve_line_structure():
     assert practice_text(poem, "first-words") == "Hope\nWith"
     assert practice_text(poem, "initials") == "H i a t\nW f"
     assert practice_text(poem, "blanks") == "_____ _____ _____ _____\n_____ _____"
+
+
+def test_practice_modes_include_gradual_recall_steps():
+    poem = "First stanza\nSecond line\n\nNext stanza"
+    assert practice_text(poem, "stanza-starts") == "First stanza\n\nNext stanza"
+    assert practice_text(poem, "structure") == "Stanza 1 — 2 lines\nStanza 2 — 1 line"
 
 
 def test_verification_levels_are_distinct():
@@ -137,3 +152,82 @@ def test_epub_build_smoke(tmp_path):
         love = epub.read("OEBPS/a1.xhtml").decode("utf-8")
         assert "Love (III)" in love
         assert "Love bade me welcome" in love
+        title = epub.read("OEBPS/title.xhtml").decode("utf-8")
+        assert "Last updated" in title
+
+
+def test_memorize_epub_contains_text_and_recall_aids_only(tmp_path):
+    output = tmp_path / "memorize.epub"
+    counts = build(output, edition="memorize")
+
+    catalog = [poem for _cat, poem in all_poems()]
+    public_domain = sum(poem["pd"] for poem in catalog)
+    assert counts == {
+        "total": public_domain,
+        "with_text": public_domain,
+        "pd": public_domain,
+        "copyright": 0,
+    }
+    with zipfile.ZipFile(output) as epub:
+        names = epub.namelist()
+        assert "OEBPS/a1.xhtml" in names
+        assert "OEBPS/a1-recall.xhtml" in names
+        assert "OEBPS/b1.xhtml" not in names
+        assert "OEBPS/order.xhtml" not in names
+        assert "OEBPS/cover.png" in names
+        assert "OEBPS/as0-movement-1.xhtml" in names
+        love = epub.read("OEBPS/a1.xhtml").decode("utf-8")
+        assert love.index("Love bade me welcome") < love.index("Published")
+        recall = epub.read("OEBPS/a1-recall.xhtml").decode("utf-8")
+        assert "First words" in recall
+        assert "Initials" in recall
+        assert "Stanza openings" in recall
+        assert "Blank structure" in recall
+        assert "Memory map" in recall
+        nav = epub.read("OEBPS/nav.xhtml").decode("utf-8")
+        assert "Love After Love" not in nav
+        assert "Love (III): Recall" not in nav
+
+
+def test_browse_epub_contains_indexes_and_current_counts(tmp_path):
+    output = tmp_path / "browse.epub"
+    build(output, edition="browse")
+    with zipfile.ZipFile(output) as epub:
+        names = epub.namelist()
+        assert "OEBPS/cover.png" in names
+        assert "OEBPS/index-authors.xhtml" in names
+        assert "OEBPS/index-first-lines.xhtml" in names
+        assert "OEBPS/index-difficulty.xhtml" in names
+        kindness = epub.read("OEBPS/cat-b.xhtml").decode("utf-8")
+        assert "All thirteen" not in kindness
+        assert "All poems in this thread" in kindness
+
+
+def test_memorize_rotation_uses_progress(tmp_path):
+    output = tmp_path / "memorize.epub"
+    build(output, edition="memorize", progress={"a1": {"state": "learning"},
+                                                 "cs0": {"state": "memorized"}})
+    with zipfile.ZipFile(output) as epub:
+        rotation = epub.read("OEBPS/rotation.xhtml").decode("utf-8")
+        assert "Learning now" in rotation
+        assert "Love (III)" in rotation
+        assert "Review" in rotation
+        assert "thing with feathers" in rotation
+
+
+def test_epub_build_is_reproducible_for_unchanged_inputs(tmp_path):
+    first = tmp_path / "first.epub"
+    second = tmp_path / "second.epub"
+    build(first, edition="memorize", progress={})
+    build(second, edition="memorize", progress={})
+    assert first.read_bytes() == second.read_bytes()
+
+
+def test_review_command_schedules_next_recall(tmp_path, monkeypatch):
+    progress = tmp_path / "progress.json"
+    monkeypatch.setattr(poembook_cli, "PROGRESS", progress)
+    assert main(["review", "a1", "easy"]) == 0
+    entry = json.loads(progress.read_text(encoding="utf-8"))["a1"]
+    assert entry["state"] == "memorized"
+    assert entry["review_interval_days"] == 3
+    assert entry["next_review"] > entry["last_review"]

@@ -35,11 +35,14 @@ export WIKI_CONTACT="you@example.com"
 poembook audit                 # metadata, line counts, source/review status
 python3 fetch_texts.py         # download missing public-domain texts
 poembook clean-cache           # remove provable title/folio preambles
-poembook build --format all    # EPUB and Markdown
+poembook build --format all    # browse EPUB, memorize EPUB, and Markdown
+poembook build --format epub --edition browse
+poembook build --format epub --edition memorize
 poembook practice a1 --mode first-words
 poembook practice a1 --mode initials
 poembook practice a1 --mode blanks
 poembook status a1 learning
+poembook review a1 easy       # schedule the next recall
 poembook verify --all          # all structural checks, then a resumable editorial queue
 poembook verify --all --structural-only
 poembook verify a1             # check and confirm one poem after source comparison
@@ -61,6 +64,42 @@ editorial approval.
 
 Personal memorization state is stored in `.poembook-progress.json` and is not
 committed.
+
+## Editions
+
+The EPUB build produces two complementary books from the same catalog and text
+assets:
+
+- `poembook-browse.epub` contains all entries, thematic introductions,
+  commentary, links, recommendations, and every available public-domain text.
+- `poembook-memorize.epub` contains only entries with local full text. Each
+  text-first poem chapter is followed by graduated recall cues: memory map,
+  stanza openings, first words, initials, and blank structure. Very long poems
+  also receive movement chapters. Its compact navigation and typography are
+  designed for small, button-driven readers such as the Xteink X3 running
+  CrossPoint.
+
+The memorize edition begins with a Current rotation generated from
+`.poembook-progress.json`: `learning`, `memorized`, and `want-to-learn` become
+Learning now, Review, and Next. The browse edition includes indexes by author,
+first line, difficulty/form, length, theme, and text availability, plus several
+short suggested reading paths. Both editions embed distinct monochrome 528×792
+cover art under `assets/`.
+
+After a recitation, `poembook review SLUG easy|hesitant|failed` records the
+result. Easy recalls receive a growing review interval, hesitant recalls return
+tomorrow, and failed recalls return immediately to Learning now. Rebuilding the
+memorize edition places due poems in its Review section.
+
+EPUB timestamps are derived from their source assets, so rebuilding unchanged
+inputs produces stable files and does not needlessly invalidate CrossPoint's
+content-based reading cache. See `screenshots/x3/README.md` for the physical
+device visual-regression checklist.
+
+The Markdown output remains the complete browse edition. Texts in the memorize
+edition may still be awaiting final human word-for-word editorial signoff; use
+`poembook audit` and the recorded source editions before committing them to
+memory.
 
 ## Adding a poem
 
@@ -84,9 +123,9 @@ variants, and record all compared URLs and the chosen edition in the sidecar.
 - `poems.py` — catalog, themes, commentary, and rights metadata
 - `poembook_cli.py` — audit, build, practice, progress, and verification commands
 - `fetch_texts.py` — resumable Wikisource/Project Gutenberg downloader
-- `build_epub.py` and `make_markdown.py` — output renderers
+- `build_epub.py` and `make_markdown.py` — browse/memorize EPUB and Markdown renderers
 - `texts/` — source text plus provenance/status JSON
 - `tests/` — catalog and practice-mode checks
 
-Run `epubcheck poems-to-memorize.epub` for independent EPUB validation when
-`epubcheck` is installed.
+Run `epubcheck poembook-browse.epub` and `epubcheck poembook-memorize.epub`
+for independent EPUB validation when installed.

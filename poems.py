@@ -3,7 +3,7 @@
 Data for "Poems to Cherish and Memorize".
 
 Each poem is a dict:
-    num        display number ("§0" for the three seed poems, else "1".."12")
+    num        display number ("§0" for the three seed poems, otherwise numeric)
     title      poem title
     author     author name
     dates      publication / composition note
@@ -24,8 +24,8 @@ CATEGORIES = [
         "intro": (
             "Thompson's poem is late-Victorian and a bit overstuffed, but its engine "
             "\u2014 <em>being chased by a love you're fleeing</em> \u2014 has a deep tradition "
-            "behind it. Every poem in this category is in the public domain in the US, "
-            "so the full texts can be included."
+            "behind it. Most poems in this thread are in the public domain in the US; "
+            "full texts are included where rights permit."
         ),
     },
     {
@@ -33,7 +33,7 @@ CATEGORIES = [
         "title": "The Kindness line",
         "subtitle": "Contemporary, plainspoken, sorrow turned toward mercy",
         "intro": (
-            "<strong>All thirteen of these are under active copyright</strong>, so no texts appear here \u2014 "
+            "<strong>All poems in this thread are under active copyright</strong>, so no texts appear here \u2014 "
             "only links to authorized sources where the publisher has granted permission. "
             "Please read them there rather than on scraper sites; poets.org and the Poetry "
             "Foundation are part of how living poets get paid."
@@ -88,6 +88,9 @@ POEMS = {
              "verse paragraph and the closing dozen lines; that is a legitimate way to hold it.",
          difficulty="Hard \u2014 by a wide margin the longest and most difficult poem here, and the "
                     "irregular metre gives you far less scaffolding than its Victorian surface suggests",
+         memory_map=["The flight begins", "Creation refuses refuge", "Human loves fail",
+                     "Childhood, nature, and time", "The pursuer confronts the soul",
+                     "The final answer"],
          links=[("Project Gutenberg (1922 ed., with notes)",
                  "https://www.gutenberg.org/files/30730/30730-h/30730-h.htm")],
          pd=True, ws="The Hound of Heaven Francis Thompson"),
@@ -99,6 +102,8 @@ POEMS = {
              "eats. Simone Weil recited this as a prayer during migraine attacks. If you "
              "memorize one poem from this category, this one.",
          difficulty="Easy",
+         memory_map=["Love welcomes; the soul withdraws", "The guest feels unworthy",
+                     "Love bears the blame and serves the meal"],
          links=[("poets.org", "https://poets.org/poem/love-iii"),
                 ("Poetry Foundation (annotated)", "https://www.poetryfoundation.org/poems/44367/love-iii")],
          pd=True, ws="Love III George Herbert The Temple"),
@@ -349,6 +354,8 @@ POEMS = {
              "on the strangest sea, it never asked a crumb of the speaker. That final turn is "
              "the whole poem. Sings to \u201cAmazing Grace,\u201d like most of her.",
          difficulty="Easy",
+         memory_map=["Hope becomes a bird", "The song persists through storms",
+                     "It asks nothing in return"],
          links=[("Poetry Foundation", "https://www.poetryfoundation.org/poems/42889/hope-is-the-thing-with-feathers-314")],
          pd=True, ws="Hope is the thing with feathers Dickinson"),
 
