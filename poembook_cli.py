@@ -46,7 +46,13 @@ def text_issues(cat, poem, text):
                   "courtesy of", "table of contents")
     if any(term in text.lower() for term in suspicious):
         issues.append("likely page boilerplate or unrelated prose")
-    if re.search(r"\bwas born (?:on|in|at)\b", text.lower()):
+    birth_statement = re.search(
+        r"\bwas born (?:(?:on|in|at)\b|\d{1,4}\b|"
+        r"(?:january|february|march|april|may|june|july|august|"
+        r"september|october|november|december)\b)",
+        text.lower(),
+    )
+    if birth_statement:
         issues.append("likely biographical prose")
     if re.fullmatch(r"\d+", first):
         issues.append("starts with a page number")

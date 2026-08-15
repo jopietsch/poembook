@@ -49,6 +49,16 @@ def test_poem_language_is_not_mistaken_for_biographical_boilerplate():
     assert text_issues({}, {"form": "4 lines"}, "It is the blight man was born for,\nOne\nTwo\nThree") == []
 
 
+def test_prepositionless_birth_date_is_biographical_boilerplate():
+    text = "T. S. Eliot was born 26 September 1888\nOne\nTwo\nThree"
+    assert "likely biographical prose" in text_issues({}, {"form": "4 lines"}, text)
+
+
+def test_prepositionless_birth_month_is_biographical_boilerplate():
+    text = "T. S. Eliot was born September 1888\nOne\nTwo\nThree"
+    assert "likely biographical prose" in text_issues({}, {"form": "4 lines"}, text)
+
+
 def test_named_anthology_section_is_extracted_to_expected_length():
     poem = {"form": "3 lines", "extract_after": "POEM TITLE"}
     source = "unrelated prose\nPOEM TITLEFirst line\nSecond line\nThird line\ntrailing notes"
