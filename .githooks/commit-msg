@@ -1,0 +1,12 @@
+#!/bin/sh
+set -eu
+
+message_file=$1
+
+if ! grep -Eq '^Reviewed-by: .+' "$message_file"; then
+    echo "Commit rejected: add a 'Reviewed-by: NAME' trailer after completing review." >&2
+    echo "Example:" >&2
+    echo "" >&2
+    echo "Reviewed-by: Jane Contributor" >&2
+    exit 1
+fi

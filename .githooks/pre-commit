@@ -1,0 +1,8 @@
+#!/bin/sh
+set -eu
+
+echo "Checking staged changes..."
+git diff --cached --check
+
+echo "Running test suite..."
+python3 -m pytest -q

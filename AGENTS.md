@@ -22,6 +22,7 @@ Set up a virtual environment, then run `pip install -e '.[dev]'`.
 - `poembook audit` reports metadata, source, and text-quality issues.
 - `poembook verify --all --structural-only` performs noninteractive structural checks.
 - `python3 -m zipfile -t poems-to-memorize.epub` checks the EPUB archive; use `epubcheck` when installed for full validation.
+- `git config core.hooksPath .githooks` enables the shared commit gates for this clone.
 
 ## Coding Style & Naming Conventions
 
@@ -37,7 +38,7 @@ Recent commits use short, imperative summaries such as `Add batch structural and
 
 ### Required Pre-Commit Review
 
-Every commit requires a code review of the complete staged diff. Before committing, inspect `git diff --cached`, check correctness, regressions, tests, generated artifacts, and source or copyright implications, then resolve every actionable finding. Rerun the relevant validation after fixes. Do not commit while a known review finding remains unresolved; document any intentionally accepted risk in the commit message or pull request. This requirement also applies to documentation-only and generated-file commits.
+Every commit requires review of the complete staged diff. Inspect `git diff --cached` for correctness, regressions, tests, artifacts, and source or copyright implications; resolve all actionable findings and rerun validation. Add a `Reviewed-by: NAME` commit trailer to attest completion. The shared hooks reject missing trailers, whitespace errors, and failing tests. This applies to documentation and generated files too.
 
 ## Copyright & Configuration
 
