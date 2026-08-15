@@ -1,5 +1,14 @@
 {
   "wikisource_page": "The Darkling Thrush",
   "search": "The Darkling Thrush Thomas Hardy",
-  "url": "https://en.wikisource.org/wiki/The_Darkling_Thrush"
+  "url": "https://en.wikisource.org/wiki/The_Darkling_Thrush",
+  "verification": {
+    "structural": {
+      "status": "passed",
+      "checked_at": "2026-08-11T07:11:25+00:00",
+      "method": "poembook structural checks",
+      "schema_version": 1
+    }
+  },
+  "status": "structurally_valid"
 }

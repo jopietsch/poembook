@@ -1,5 +1,14 @@
 {
   "wikisource_page": "Poems (Dickinson)/There's a certain slant of light",
   "search": "There's a certain slant of light Dickinson",
-  "url": "https://en.wikisource.org/wiki/Poems_(Dickinson)/There's_a_certain_slant_of_light"
+  "url": "https://en.wikisource.org/wiki/Poems_(Dickinson)/There's_a_certain_slant_of_light",
+  "verification": {
+    "structural": {
+      "status": "passed",
+      "checked_at": "2026-08-11T07:11:25+00:00",
+      "method": "poembook structural checks",
+      "schema_version": 1
+    }
+  },
+  "status": "structurally_valid"
 }

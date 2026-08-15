@@ -1,5 +1,14 @@
 {
   "wikisource_page": "Poems (Rossetti, 1901)/Up-Hill",
   "search": "Up-Hill Christina Rossetti",
-  "url": "https://en.wikisource.org/wiki/Poems_(Rossetti,_1901)/Up-Hill"
+  "url": "https://en.wikisource.org/wiki/Poems_(Rossetti,_1901)/Up-Hill",
+  "verification": {
+    "structural": {
+      "status": "passed",
+      "checked_at": "2026-08-11T07:11:25+00:00",
+      "method": "poembook structural checks",
+      "schema_version": 1
+    }
+  },
+  "status": "structurally_valid"
 }

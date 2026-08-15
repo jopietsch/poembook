@@ -1,5 +1,14 @@
 {
   "wikisource_page": "Further Poems of Emily Dickinson/After great pain a formal feeling comes—",
   "search": "After great pain a formal feeling comes Dickinson",
-  "url": "https://en.wikisource.org/wiki/Further_Poems_of_Emily_Dickinson/After_great_pain_a_formal_feeling_comes—"
+  "url": "https://en.wikisource.org/wiki/Further_Poems_of_Emily_Dickinson/After_great_pain_a_formal_feeling_comes—",
+  "verification": {
+    "structural": {
+      "status": "passed",
+      "checked_at": "2026-08-11T07:11:25+00:00",
+      "method": "poembook structural checks",
+      "schema_version": 1
+    }
+  },
+  "status": "structurally_valid"
 }

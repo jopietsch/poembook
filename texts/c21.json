@@ -2,5 +2,13 @@
   "source": "The Hesperides & Noble Numbers/Hesperides/To the Virgins, to Make Much of Time",
   "search": "To the Virgins Herrick",
   "url": "https://en.wikisource.org/wiki/The_Hesperides_&_Noble_Numbers/Hesperides/To_the_Virgins,_to_Make_Much_of_Time",
-  "status": "fetched"
+  "status": "structurally_valid",
+  "verification": {
+    "structural": {
+      "status": "passed",
+      "checked_at": "2026-08-11T07:11:26+00:00",
+      "method": "poembook structural checks",
+      "schema_version": 1
+    }
+  }
 }

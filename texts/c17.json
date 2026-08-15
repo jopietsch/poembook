@@ -2,5 +2,13 @@
   "source": "Shake-speares Sonnets, Never before Imprinted/Sonnet 73",
   "search": "Shakespeare Sonnet 73",
   "url": "https://en.wikisource.org/wiki/Shake-speares_Sonnets,_Never_before_Imprinted/Sonnet_73",
-  "status": "fetched"
+  "status": "structurally_valid",
+  "verification": {
+    "structural": {
+      "status": "passed",
+      "checked_at": "2026-08-11T07:11:25+00:00",
+      "method": "poembook structural checks",
+      "schema_version": 1
+    }
+  }
 }

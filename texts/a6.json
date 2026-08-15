@@ -1,5 +1,14 @@
 {
   "wikisource_page": "Poems of Gerard Manley Hopkins/The Windhover",
   "search": "The Windhover Gerard Manley Hopkins",
-  "url": "https://en.wikisource.org/wiki/Poems_of_Gerard_Manley_Hopkins/The_Windhover"
+  "url": "https://en.wikisource.org/wiki/Poems_of_Gerard_Manley_Hopkins/The_Windhover",
+  "verification": {
+    "structural": {
+      "status": "passed",
+      "checked_at": "2026-08-11T07:11:25+00:00",
+      "method": "poembook structural checks",
+      "schema_version": 1
+    }
+  },
+  "status": "structurally_valid"
 }

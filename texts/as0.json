@@ -1,5 +1,14 @@
 {
   "wikisource_page": "Poems (Thompson)/The Hound of Heaven",
   "search": "The Hound of Heaven Francis Thompson",
-  "url": "https://en.wikisource.org/wiki/Poems_(Thompson)/The_Hound_of_Heaven"
+  "url": "https://en.wikisource.org/wiki/Poems_(Thompson)/The_Hound_of_Heaven",
+  "verification": {
+    "structural": {
+      "status": "passed",
+      "checked_at": "2026-08-11T07:11:25+00:00",
+      "method": "poembook structural checks",
+      "schema_version": 1
+    }
+  },
+  "status": "structurally_valid"
 }
