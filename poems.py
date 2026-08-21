@@ -3,7 +3,7 @@
 Data for "Poems to Cherish and Memorize".
 
 Each poem is a dict:
-    num        display number ("§0" for the three seed poems, otherwise numeric)
+    num        display number ("§0" for a seed work, otherwise numeric)
     title      poem title
     author     author name
     dates      publication / composition note
@@ -57,6 +57,29 @@ CATEGORIES = [
             "beauty is inseparable from terror, and sustained attention becomes a demand "
             "to change. The included English texts use Jessie Lemont's public-domain 1918 "
             "translations. Modern translations are linked when their choices are important."
+        ),
+    },
+    {
+        "id": "e",
+        "title": "The Saint Patrick's Breastplate line",
+        "subtitle": "Protection, courage, the world made into prayer",
+        "intro": (
+            "A <em>lorica</em> is a prayer worn as armor. This thread begins with the "
+            "great Irish hymn traditionally attributed to Patrick: its protection is not "
+            "withdrawal from the world, but Christ before, behind, beneath, above, and "
+            "within the speaker. Its contemporary companion poems remain linked rather than "
+            "reprinted, so their authors and publishers can be supported."
+        ),
+    },
+    {
+        "id": "f",
+        "title": "The Canticle of the Sun line",
+        "subtitle": "Creaturely kinship, praise, poverty, and a companionable death",
+        "intro": (
+            "Francis calls sun, moon, wind, water, fire, earth, and even bodily death "
+            "brother or sister. This is praise that does not leave the material world "
+            "behind: it learns to receive creation as family. Its contemporary companion poems "
+            "remain linked rather than reprinted, so their authors and publishers can be supported."
         ),
     },
 ]
@@ -470,6 +493,98 @@ POEMS = {
          difficulty="Easy",
          links=[("poets.org", "https://poets.org/poem/there-will-come-soft-rains")],
          pd=True, ws="There Will Come Soft Rains Teasdale"),
+],
+"e": [
+    dict(num="§0", seed=True, title="Saint Patrick's Breastplate", author="Anonymous (traditionally Saint Patrick)",
+         dates="Old Irish hymn; traditionally associated with Saint Patrick (5th century)",
+         form="metrical translation, 11 stanzas",
+         why="A prayer of encircling: Trinity, Christ's life, the communion of saints, and the "
+             "created world become protection for a journey through danger. The recurring "
+             "\u201cI bind unto myself to-day\u201d gives it a powerful memorization spine.",
+         difficulty="Moderate \u2014 long, but carried by anaphora and hymn rhythm",
+         memory_map=["Invocation of the Trinity", "Christ's life and return", "The communion of saints",
+                     "The powers of creation", "God's guarding power", "Christ in every encounter", "Closing confession"],
+         links=[("Wikisource: Cecil Frances Alexander translation", "https://en.wikisource.org/wiki/I_bind_unto_myself_to-day")],
+         pd=True, ws="I bind unto myself to-day"),
+    dict(num="1", title="A Blessing", author="James Wright", dates="1963", form="free verse",
+         why="Two horses at the edge of a field make an ordinary walk into an encounter with a power that loosens the self. A breastplate need not harden us.",
+         difficulty="Moderate", links=[("Poetry Foundation", "https://www.poetryfoundation.org/search?query=A%20Blessing%20James%20Wright")], pd=False, ws=None),
+    dict(num="2", title="The Waking", author="Theodore Roethke", dates="1953", form="villanelle",
+         why="A disciplined answer to fear: wake into the life that is given, and learn by going where one has to go.",
+         difficulty="Moderate", links=[("Poetry Foundation", "https://www.poetryfoundation.org/poems/58708/the-waking")], pd=False, ws=None),
+    dict(num="3", title="The Peace of Wild Things", author="Wendell Berry", dates="1968", form="free verse",
+         why="Fear is met not by denial but by putting the body among creatures that do not rehearse their own destruction.",
+         difficulty="Easy\u2013Moderate", links=[("Poetry Foundation", "https://www.poetryfoundation.org/search?query=The%20Peace%20of%20Wild%20Things%20Wendell%20Berry")], pd=False, ws=None),
+    dict(num="4", title="The Journey", author="Mary Oliver", dates="1986", form="free verse",
+         why="The moment of leaving a chorus of bad advice behind: a companion to Patrick's clear, repeated choice to bind oneself to what saves.",
+         difficulty="Moderate", links=[("Poetry Foundation", "https://www.poetryfoundation.org/search?query=The%20Journey%20Mary%20Oliver")], pd=False, ws=None),
+    dict(num="5", title="When Death Comes", author="Mary Oliver", dates="1992", form="free verse",
+         why="A fearless rehearsal for mortality that refuses both abstraction and panic; it belongs beside the breastplate's protection for the whole journey.",
+         difficulty="Moderate", links=[("Poetry Foundation", "https://www.poetryfoundation.org/search?query=When%20Death%20Comes%20Mary%20Oliver")], pd=False, ws=None),
+    dict(num="6", title="The Uses of Sorrow", author="Mary Oliver", dates="2007", form="short free verse",
+         why="Sorrow is given a voice and refuses to be banished. Protection here means learning what may accompany us without ruling us.",
+         difficulty="Easy", links=[("Poetry Foundation", "https://www.poetryfoundation.org/search?query=The%20Uses%20of%20Sorrow%20Mary%20Oliver")], pd=False, ws=None),
+    dict(num="7", title="A Ritual to Read to Each Other", author="William Stafford", dates="1976", form="free verse",
+         why="Its watchfulness is communal rather than solitary: notice the signals, resist the simplifications, and keep each other from becoming lost.",
+         difficulty="Moderate", links=[("Poetry Foundation", "https://www.poetryfoundation.org/search?query=A%20Ritual%20to%20Read%20to%20Each%20Other%20William%20Stafford")], pd=False, ws=None),
+    dict(num="8", title="To Be of Use", author="Marge Piercy", dates="1973", form="free verse",
+         why="A praise poem for people who pull like water buffalo and do the work that must be done: courage made practical.",
+         difficulty="Moderate", links=[("Poetry Foundation", "https://www.poetryfoundation.org/search?query=To%20Be%20of%20Use%20Marge%20Piercy")], pd=False, ws=None),
+    dict(num="9", title="Prayer", author="Carol Ann Duffy", dates="2005", form="four sestets, free verse",
+         why="Grace arrives in secular sound: a train, a radio, the ordinary syllables that carry a person through an unchosen hour.",
+         difficulty="Moderate", links=[("Poetry Foundation", "https://www.poetryfoundation.org/search?query=Prayer%20Carol%20Ann%20Duffy")], pd=False, ws=None),
+    dict(num="10", title="The Gift", author="Li-Young Lee", dates="1990", form="free verse",
+         why="A father's care for a splinter becomes an inheritance of tenderness. It is a small, bodily form of the guarding love Patrick invokes.",
+         difficulty="Moderate", links=[("Poetry Foundation", "https://www.poetryfoundation.org/search?query=The%20Gift%20Li-Young%20Lee")], pd=False, ws=None),
+    dict(num="11", title="Instructions on Not Giving Up", author="Ada Lim\u00f3n", dates="2017", form="free verse",
+         why="After winter, a tree opens a new leaf anyway. The poem's stubborn, unshowy courage is a modern answer to the breastplate's daily resolve.",
+         difficulty="Moderate", links=[("Academy of American Poets", "https://poets.org/poem/instructions-not-giving")], pd=False, ws=None),
+],
+"f": [
+    dict(num="§0", seed=True, title="The Canticle of the Sun", author="Saint Francis of Assisi",
+         dates="c. 1225; English translation in <em>The Writings of St. Francis of Assisi</em> (1906)",
+         form="10 stanzas, free-verse translation",
+         why="The elemental praise poem: sun and moon, wind and water, fire and earth are not "
+             "scenery but kin. Its final turn to forgiveness, suffering, and \u201csister bodily death\u201d "
+             "makes the joy durable rather than merely pastoral.",
+         difficulty="Easy\u2013Moderate \u2014 short stanzas, repeated praise, and a clear procession through creation",
+         memory_map=["Praise belongs to God", "Brother sun", "Sister moon and stars", "Wind and weather",
+                     "Water and fire", "Mother earth", "Forgiveness and endurance", "Sister bodily death", "Final humility"],
+         links=[("Wikisource: 1906 literal English translation", "https://en.wikisource.org/wiki/The_Writings_of_St._Francis_of_Assisi/The_Canticle_of_the_Sun")],
+         pd=True, ws="The Writings of St Francis of Assisi The Canticle of the Sun"),
+    dict(num="1", title="The Summer Day", author="Mary Oliver", dates="1990", form="free verse",
+         why="A grasshopper becomes a teacher of attention, and attention becomes the question of what to do with one's one wild and precious life.",
+         difficulty="Moderate", links=[("Poetry Foundation", "https://www.poetryfoundation.org/search?query=The%20Summer%20Day%20Mary%20Oliver")], pd=False, ws=None),
+    dict(num="2", title="Sleeping in the Forest", author="Mary Oliver", dates="1979", form="free verse",
+         why="The self lies down among the dark trees and wakes remade into something of their world: Francis's creaturely kinship turned inward.",
+         difficulty="Easy\u2013Moderate", links=[("Poetry Foundation", "https://www.poetryfoundation.org/search?query=Sleeping%20in%20the%20Forest%20Mary%20Oliver")], pd=False, ws=None),
+    dict(num="3", title="The Wild Iris", author="Louise Gl\u00fcck", dates="1992", form="free verse",
+         why="A flower speaks across death and return. It complicates Franciscan praise by letting creation answer back in a voice that is neither decorative nor tame.",
+         difficulty="Moderate", links=[("Poetry Foundation", "https://www.poetryfoundation.org/search?query=The%20Wild%20Iris%20Louise%20Gluck")], pd=False, ws=None),
+    dict(num="4", title="The Trees", author="Philip Larkin", dates="1974", form="12 rhymed quatrains",
+         why="The trees' annual greening is both consolation and rebuke: renewal happens, but it does not erase time. A sterner cousin to praise.",
+         difficulty="Moderate", links=[("Poetry Foundation", "https://www.poetryfoundation.org/search?query=The%20Trees%20Philip%20Larkin")], pd=False, ws=None),
+    dict(num="5", title="Thistles", author="Ted Hughes", dates="1960", form="free verse",
+         why="Creation here is fierce rather than gentle: thistles keep their own counsel and survive human interruption. Francis's brothers and sisters have teeth.",
+         difficulty="Moderate", links=[("Poetry Foundation", "https://www.poetryfoundation.org/search?query=Thistles%20Ted%20Hughes")], pd=False, ws=None),
+    dict(num="6", title="The Raincoat", author="Ada Lim\u00f3n", dates="2018", form="free verse",
+         why="A raincoat given from mother to daughter becomes a belated recognition of care that had quietly made a whole life possible.",
+         difficulty="Moderate", links=[("Academy of American Poets", "https://poets.org/poem/raincoat")], pd=False, ws=None),
+    dict(num="7", title="Dead Stars", author="Ada Lim\u00f3n", dates="2018", form="free verse",
+         why="Beneath ordinary suburbia, people and trees bend toward survival. Its cosmic scale and ecological solidarity speak directly to the Canticle's family of creatures.",
+         difficulty="Moderate", links=[("Academy of American Poets", "https://poets.org/anthology/women-color-1")], pd=False, ws=None),
+    dict(num="8", title="The Orange", author="Wendy Cope", dates="1986", form="short free verse",
+         why="A small fruit, shared in a hard season, becomes enough light for the day. Praise does not need a cathedral-sized occasion.",
+         difficulty="Easy", links=[("Poetry Foundation", "https://www.poetryfoundation.org/search?query=The%20Orange%20Wendy%20Cope")], pd=False, ws=None),
+    dict(num="9", title="The House Was Quiet and the World Was Calm", author="Wallace Stevens", dates="1942", form="free verse",
+         why="Reading at night becomes an act of such attention that mind, house, and world briefly settle into one order.",
+         difficulty="Moderate", links=[("Poetry Foundation", "https://www.poetryfoundation.org/search?query=The%20House%20Was%20Quiet%20and%20the%20World%20Was%20Calm%20Wallace%20Stevens")], pd=False, ws=None),
+    dict(num="10", title="Messenger", author="Mary Oliver", dates="2007", form="free verse",
+         why="The speaker's work is to love the world, to make a place for its notes, and to answer. It may be the clearest modern description of Franciscan vocation.",
+         difficulty="Moderate", links=[("Poetry Foundation", "https://www.poetryfoundation.org/search?query=Messenger%20Mary%20Oliver")], pd=False, ws=None),
+    dict(num="11", title="Instructions on Not Giving Up", author="Ada Lim\u00f3n", dates="2017", form="free verse",
+         why="The return of leaves after damage is praise without sentimentality: the living world takes the hurt and continues opening.",
+         difficulty="Moderate", links=[("Academy of American Poets", "https://poets.org/poem/instructions-not-giving")], pd=False, ws=None),
 ],
 }
 

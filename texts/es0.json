@@ -1,0 +1,25 @@
+{
+  "wikisource_page": "The Writings of Saint Patrick, the Apostle of Ireland/Version of Mrs. Alexander",
+  "search": "I bind unto myself to-day",
+  "url": "https://en.wikisource.org/wiki/I_bind_unto_myself_to-day",
+  "verification": {
+    "structural": {
+      "status": "passed",
+      "checked_at": "2026-08-21T02:46:23+00:00",
+      "method": "poembook structural checks",
+      "schema_version": 1
+    },
+    "source_comparison": {
+      "status": "passed",
+      "checked_at": "2026-08-20T00:00:00+00:00",
+      "method": "machine-assisted transcription comparison; human editorial signoff still required",
+      "schema_version": 1,
+      "chosen_edition": "Cecil Frances Alexander translation, appended to Charles Henry Hamilton Wright, The Writings of Saint Patrick, the Apostle of Ireland (1874)",
+      "compared_sources": [
+        "https://en.wikisource.org/wiki/I_bind_unto_myself_to-day"
+      ],
+      "notes": "Transcribed the complete nine-stanza metrical translation from the recorded source; title and editorial preface omitted."
+    }
+  },
+  "status": "structurally_valid"
+}

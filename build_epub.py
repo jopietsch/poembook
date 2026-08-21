@@ -30,7 +30,7 @@ PROGRESS_PATH = Path(HERE) / ".poembook-progress.json"
 ASSETDIR = Path(HERE) / "assets"
 
 TITLE = "Poems to Cherish and Memorize"
-SUBTITLE = "A curated expansion from three seed poems"
+SUBTITLE = "A curated collection in six thematic threads"
 BOOK_ID = "urn:uuid:" + str(uuid.uuid5(uuid.NAMESPACE_DNS, "poems-to-memorize.local"))
 
 CSS = """\
@@ -350,8 +350,8 @@ def category_page(cat, poems=None, compact=False):
 
 HOWTO = """
 <h1>How to use this book</h1>
-<p>A growing collection organized into thematic threads from the original three
-seed poems, plus a fourth path through Rilke. Each entry gives the poem's date
+<p>A growing collection organized into six thematic threads: five seed works,
+plus a path through Rilke. Each entry gives the poem's date
 and source, form, commentary, memorization difficulty, and authoritative links.</p>
 
 <p><strong>Which texts are here.</strong> Public-domain texts are included when available;
@@ -383,7 +383,7 @@ resistance while keeping the book's different threads of feeling in rotation.
 You do not need to follow it rigidly: a poem you urgently want to know is often
 easier to learn than a technically simpler poem you merely admire.</p>
 
-<p><strong>Where your three seeds fit.</strong> Dickinson's
+<p><strong>Where the original three seeds fit.</strong> Dickinson's
 <a href="cs0.xhtml">\u201cHope\u201d</a> belongs in the first
 group \u2014 it is as easy as anything here, and if you don't already have it, get it
 first. Nye's <a href="bs0.xhtml">\u201cKindness\u201d</a> sits with the harder free verse
@@ -504,7 +504,7 @@ def build(outpath, edition="browse", progress=None):
     modified_stamp = modified_dt.replace(microsecond=0).strftime("%Y-%m-%dT%H:%M:%SZ")
     byline = (f'<p class="byline">{total_poems} poems for pocket practice</p>'
               if is_memorize else
-              f'<p class="byline">{total_poems} poems in four thematic threads</p>')
+              f'<p class="byline">{total_poems} poems in {len(CATEGORIES)} thematic threads</p>')
 
     files["title.xhtml"] = page(book_title,
         f'<h1 class="booktitle">{book_title}</h1>'
@@ -622,14 +622,16 @@ commit them to memory.</p>
         out.append(f"{pad}</ol>")
         return "\n".join(out)
 
-    # A section summary up top, so the first thing you see is the three lines
+    # A section summary up top, so the first thing you see is the thematic lines
     # of feeling rather than a wall of titles.
     seeds = {"a": "Francis Thompson, \u201cThe Hound of Heaven\u201d",
              "b": "Naomi Shihab Nye, \u201cKindness\u201d",
              "c": "Emily Dickinson, \u201c\u2018Hope\u2019 is the thing with feathers\u201d",
-             "d": "Rilke's poems of solitude and transformation"}
+             "d": "Rilke's poems of solitude and transformation",
+             "e": "\u201cSaint Patrick's Breastplate\u201d",
+             "f": "Saint Francis, \u201cThe Canticle of the Sun\u201d"}
     summary = [('<p class="lede">Practice by theme.</p>' if is_memorize else
-                '<p class="lede">Four sections, each growing out of a seed poem.</p>'),
+                f'<p class="lede">{len(CATEGORIES)} sections, each growing out of a seed work.</p>'),
                '<div class="sections">']
     for n, cat in enumerate(CATEGORIES, 1):
         cid = cat["id"]

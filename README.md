@@ -1,12 +1,14 @@
 # Poembook
 
 Poembook builds a curated, copyright-aware anthology for reading and
-memorization. It currently contains 78 poems in four thematic threads:
+memorization. It currently contains 102 poems in six thematic threads:
 
 - pursuit, flight, and wrestling with God;
 - sorrow turning toward kindness;
 - compact poems built around one sustaining image;
 - Rilke on solitude, attention, terror, and transformation.
+- Saint Patrick's Breastplate on protection, courage, and prayer in the world.
+- Saint Francis's Canticle of the Sun on creaturely kinship, praise, and death.
 
 Public-domain texts may be included in the generated book. Copyrighted poems
 remain commentary plus links to authorized sources.

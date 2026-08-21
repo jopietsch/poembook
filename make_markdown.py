@@ -64,22 +64,26 @@ def main():
 
     L = []
     L.append("# Poems to Cherish and Memorize")
-    L.append("### A curated expansion from three seed poems\n")
+    L.append("### A curated collection in six thematic threads\n")
     L.append(f"*Last updated {updated}*\n")
-    L.append("**Original seeds** \u2014 each heads one of the first three categories as entry **\u00a70**:")
+    L.append("**Seed works** \u2014 each heads its own category as entry **\u00a70**:")
     L.append("- Francis Thompson, \u201cThe Hound of Heaven\u201d (1890/1893) \u2192 Category A")
     L.append("- Naomi Shihab Nye, \u201cKindness\u201d (coll. 1995) \u2192 Category B")
     L.append("- Emily Dickinson, \u201c\u2018Hope\u2019 is the thing with feathers\u201d (Fr314) \u2192 Category C")
+    L.append("- \u201cSaint Patrick's Breastplate\u201d (traditional; Alexander translation) \u2192 Category E")
+    L.append("- Saint Francis of Assisi, \u201cThe Canticle of the Sun\u201d (c. 1225) \u2192 Category F")
     L.append("\n---\n")
 
     # ---------- table of contents ----------
     L.append("## Contents\n")
-    L.append("**Four thematic threads, including a new path through Rilke.**\n")
+    L.append("**Six thematic threads, including a path through Rilke.**\n")
 
     seeds = {"a": "Thompson, \u201cThe Hound of Heaven\u201d",
              "b": "Nye, \u201cKindness\u201d",
              "c": "Dickinson, \u201c\u2018Hope\u2019 is the thing with feathers\u201d",
-             "d": "Rilke's solitude and transformation poems"}
+             "d": "Rilke's solitude and transformation poems",
+             "e": "\u201cSaint Patrick's Breastplate\u201d",
+             "f": "Francis, \u201cThe Canticle of the Sun\u201d"}
     L.append("| | Section | Grows out of | Poems | Texts |")
     L.append("|---|---|---|---|---|")
     for i, cat in enumerate(CATEGORIES, 1):
@@ -206,7 +210,7 @@ def main():
              "while keeping the book's different threads of feeling in rotation. You do not "
              "need to follow it rigidly: a poem you urgently want to know is often easier to "
              "learn than a technically simpler poem you merely admire.\n")
-    L.append("**Where your three seeds fit.** Dickinson's [\u201cHope\u201d]"
+    L.append("**Where the original three seeds fit.** Dickinson's [\u201cHope\u201d]"
              "(#0-hope-is-the-thing-with-feathers) belongs in the first group "
              "\u2014 it's as easy as anything here, and if you don't already have it, get it "
              "first. Nye's [\u201cKindness\u201d](#0-kindness) sits with the harder free verse "
