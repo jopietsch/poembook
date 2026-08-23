@@ -511,7 +511,7 @@ POEMS = {
          difficulty="Moderate", links=[("Poetry Foundation", "https://www.poetryfoundation.org/search?query=A%20Blessing%20James%20Wright")], pd=False, ws=None),
     dict(num="2", title="The Waking", author="Theodore Roethke", dates="1953", form="villanelle",
          why="A disciplined answer to fear: wake into the life that is given, and learn by going where one has to go.",
-         difficulty="Moderate", links=[("Poetry Foundation", "https://www.poetryfoundation.org/poems/58708/the-waking")], pd=False, ws=None),
+         difficulty="Moderate", links=[("Poetry Foundation", "https://www.poetryfoundation.org/poems/43333/the-waking-56d2220f25315")], pd=False, ws=None),
     dict(num="3", title="The Peace of Wild Things", author="Wendell Berry", dates="1968", form="free verse",
          why="Fear is met not by denial but by putting the body among creatures that do not rehearse their own destruction.",
          difficulty="Easy\u2013Moderate", links=[("Poetry Foundation", "https://www.poetryfoundation.org/search?query=The%20Peace%20of%20Wild%20Things%20Wendell%20Berry")], pd=False, ws=None),

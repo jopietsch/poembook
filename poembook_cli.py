@@ -2,11 +2,16 @@
 """Command-line tools for auditing, building, and memorizing the collection."""
 
 import argparse
+import concurrent.futures
 import datetime
+import html
 import json
 import os
 import re
 import sys
+import urllib.error
+import urllib.parse
+import urllib.request
 from pathlib import Path
 
 from poems import CATEGORIES, POEMS, all_poems, slug
@@ -85,6 +90,93 @@ def audit():
                 warnings.append(f"{sid}: source-compared; human editorial signoff pending")
             elif level != "editorial":
                 warnings.append(f"{sid}: text is not editorially verified")
+    return errors, warnings
+
+
+def _match_words(value):
+    """Return meaningful words for a deliberately forgiving page-content check."""
+    ignored = {"the", "and", "with", "from", "saint", "this", "that"}
+    return [word.lower() for word in re.findall(r"[A-Za-zÀ-ÿ]{4,}", value)
+            if word.lower() not in ignored]
+
+
+def _page_text(value):
+    """Normalize visible HTML text enough to compare poetry across markup."""
+    value = html.unescape(re.sub(r"<[^>]+>", " ", value))
+    value = value.replace("’", "'").replace("‘", "'").replace("—", "-")
+    return re.sub(r"\s+", " ", value).strip().lower()
+
+
+def remote_records():
+    """Yield every reader-facing link and every source used by a local text."""
+    for cat, poem in all_poems():
+        sid = slug(cat["id"], poem)
+        for label, url in poem["links"]:
+            yield {"kind": "link", "slug": sid, "title": poem["title"],
+                   "author": poem["author"], "label": label, "url": url}
+        text_path = TEXTS / f"{sid}.txt"
+        metadata_path = TEXTS / f"{sid}.json"
+        if not (text_path.exists() and metadata_path.exists()):
+            continue
+        metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+        source_url = metadata.get("url")
+        if source_url:
+            first_line = next((line.strip() for line in text_path.read_text(
+                encoding="utf-8").splitlines() if line.strip()), "")
+            yield {"kind": "source", "slug": sid, "title": poem["title"],
+                   "author": poem["author"], "label": "recorded source", "url": source_url,
+                   "first_line": first_line}
+
+
+def fetch_remote(url, timeout=20):
+    """Fetch a bounded page body for an explicit, user-invoked link audit."""
+    parts = urllib.parse.urlsplit(url)
+    url = urllib.parse.urlunsplit((
+        parts.scheme, parts.netloc, urllib.parse.quote(parts.path, safe="/%"),
+        urllib.parse.quote(parts.query, safe="=&%"), urllib.parse.quote(parts.fragment, safe="%"),
+    ))
+    request = urllib.request.Request(
+        url, headers={"User-Agent": "poembook/2.0 link audit"})
+    with urllib.request.urlopen(request, timeout=timeout) as response:
+        return response.status, response.url, response.read(500_000).decode("utf-8", "ignore")
+
+
+def audit_remote(records=None, fetch=fetch_remote, workers=8):
+    """Check that remote pages are reachable and carry the expected poem evidence."""
+    errors, warnings = [], []
+    def inspect(record):
+        try:
+            _status, final_url, body = fetch(record["url"])
+        except urllib.error.HTTPError as exc:
+            if exc.code in (401, 403, 429, 503):
+                return (None, [f"{record['slug']}: {record['label']} could not be checked (HTTP {exc.code})"])
+            return (f"{record['slug']}: {record['label']} unreachable: {exc}", [])
+        except (OSError, UnicodeError, ValueError) as exc:
+            return (f"{record['slug']}: {record['label']} unreachable: {exc}", [])
+        visible = _page_text(body)
+        if record["kind"] == "source":
+            expected = _page_text(record.get("first_line", ""))
+            if expected and expected not in visible:
+                title_matches = any(word in visible for word in _match_words(record["title"]))
+                author_matches = any(word in visible for word in _match_words(record["author"]))
+                if not (title_matches and author_matches):
+                    return (None, [f"{record['slug']}: source reachable but poem evidence was not found ({final_url})"])
+            return (None, [])
+        record_warnings = []
+        title_words = _match_words(record["title"])
+        author_words = _match_words(record["author"])
+        if not any(word in visible for word in title_words):
+            record_warnings.append(f"{record['slug']}: link reachable but title was not found ({final_url})")
+        if author_words and not any(word in visible for word in author_words):
+            record_warnings.append(f"{record['slug']}: link reachable but author was not found ({final_url})")
+        return (None, record_warnings)
+
+    records = list(records or remote_records())
+    with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as executor:
+        for error, record_warnings in executor.map(inspect, records):
+            if error:
+                errors.append(error)
+            warnings.extend(record_warnings)
     return errors, warnings
 
 
@@ -199,6 +291,8 @@ def main(argv=None):
     commands = parser.add_subparsers(dest="command", required=True)
     audit_parser = commands.add_parser("audit", help="check metadata and downloaded texts")
     audit_parser.add_argument("--strict", action="store_true", help="treat warnings as failure")
+    remote_parser = commands.add_parser("audit-links", help="check remote poem links and recorded text sources")
+    remote_parser.add_argument("--strict", action="store_true", help="treat ambiguous page matches as failure")
     build_parser = commands.add_parser("build", help="build EPUB, Markdown, or both")
     build_parser.add_argument("--format", choices=("epub", "markdown", "all"), default="all")
     build_parser.add_argument("--edition", choices=("browse", "memorize", "all"), default="all",
@@ -225,6 +319,14 @@ def main(argv=None):
 
     if args.command == "audit":
         errors, warnings = audit()
+        for item in errors:
+            print(f"ERROR {item}")
+        for item in warnings:
+            print(f"WARN  {item}")
+        print(f"\n{len(errors)} errors, {len(warnings)} warnings")
+        return 1 if errors or (args.strict and warnings) else 0
+    if args.command == "audit-links":
+        errors, warnings = audit_remote()
         for item in errors:
             print(f"ERROR {item}")
         for item in warnings:

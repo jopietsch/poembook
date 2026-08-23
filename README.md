@@ -35,6 +35,7 @@ export WIKI_CONTACT="you@example.com"
 
 ```bash
 poembook audit                 # metadata, line counts, source/review status
+poembook audit-links           # live-check poem links and recorded text sources
 python3 fetch_texts.py         # download missing public-domain texts
 poembook clean-cache           # remove provable title/folio preambles
 poembook build --format all    # browse EPUB, memorize EPUB, and Markdown

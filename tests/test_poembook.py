@@ -1,11 +1,13 @@
 import json
+import urllib.error
 import zipfile
 from pathlib import Path
 
 import poembook_cli
 from build_epub import build
 from poems import CATEGORIES, POEMS, all_poems, slug
-from poembook_cli import audit, expected_lines, main, practice_text, record_verification, text_issues, verification_level
+from poembook_cli import (audit, audit_remote, expected_lines, main, practice_text,
+                          record_verification, text_issues, verification_level)
 from fetch_texts import normalize_candidate
 
 
@@ -129,6 +131,76 @@ def test_repository_text_assets_respect_rights_and_have_provenance():
 def test_catalog_and_local_texts_have_no_audit_errors():
     errors, _warnings = audit()
     assert errors == []
+
+
+def test_remote_audit_checks_expected_page_evidence_without_network():
+    records = [
+        {"kind": "link", "slug": "x1", "title": "A Bright Field", "author": "Ada Poet",
+         "label": "publisher", "url": "https://example.test/poem"},
+        {"kind": "source", "slug": "x2", "title": "Source Poem", "author": "Ada Poet",
+         "label": "recorded source", "url": "https://example.test/source", "first_line": "First line"},
+    ]
+
+    def fetch(url):
+        if url.endswith("poem"):
+            return 200, url, "<title>A Bright Field — Ada Poet</title>"
+        return 200, url, "<p>First\nline of the source poem</p>"
+
+    errors, warnings = audit_remote(records, fetch=fetch)
+    assert errors == []
+    assert warnings == []
+
+
+def test_remote_audit_reports_unreachable_and_ambiguous_records():
+    records = [
+        {"kind": "link", "slug": "x1", "title": "A Bright Field", "author": "Ada Poet",
+         "label": "publisher", "url": "https://example.test/missing"},
+        {"kind": "source", "slug": "x2", "title": "Source Poem", "author": "Ada Poet",
+         "label": "recorded source", "url": "https://example.test/source", "first_line": "First line"},
+    ]
+
+    def fetch(url):
+        if url.endswith("missing"):
+            raise OSError("not reachable")
+        return 200, url, "<p>A different text</p>"
+
+    errors, warnings = audit_remote(records, fetch=fetch)
+    assert errors == ["x1: publisher unreachable: not reachable"]
+    assert warnings == ["x2: source reachable but poem evidence was not found (https://example.test/source)"]
+
+
+def test_remote_audit_reports_malformed_unicode_url_without_crashing():
+    records = [{"kind": "link", "slug": "x1", "title": "A Bright Field", "author": "Ada Poet",
+                "label": "publisher", "url": "https://example.test/—"}]
+
+    def fetch(_url):
+        raise UnicodeEncodeError("ascii", "—", 0, 1, "not encodable")
+
+    errors, warnings = audit_remote(records, fetch=fetch)
+    assert errors == ["x1: publisher unreachable: 'ascii' codec can't encode character '\\u2014' in position 0: not encodable"]
+    assert warnings == []
+
+
+def test_remote_audit_distinguishes_access_restrictions_from_dead_links():
+    records = [{"kind": "link", "slug": "x1", "title": "A Bright Field", "author": "Ada Poet",
+                "label": "publisher", "url": "https://example.test/restricted"}]
+
+    def fetch(_url):
+        raise urllib.error.HTTPError("https://example.test/restricted", 403, "Forbidden", {}, None)
+
+    errors, warnings = audit_remote(records, fetch=fetch)
+    assert errors == []
+    assert warnings == ["x1: publisher could not be checked (HTTP 403)"]
+
+
+def test_remote_audit_accepts_identified_source_when_edition_first_line_differs():
+    records = [{"kind": "source", "slug": "x1", "title": "A Bright Field", "author": "Ada Poet",
+                "label": "recorded source", "url": "https://example.test/source", "first_line": "Different edition"}]
+
+    errors, warnings = audit_remote(
+        records, fetch=lambda url: (200, url, "<title>A Bright Field — Ada Poet</title>"))
+    assert errors == []
+    assert warnings == []
 
 
 def test_epub_build_smoke(tmp_path):
