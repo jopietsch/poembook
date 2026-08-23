@@ -216,7 +216,6 @@ def memory_aid_html(text):
 
     return (f'<p class="practice-label">Stanza openings</p>{aid_lines("stanza-starts")}'
             f'<hr/><p class="practice-label">First words</p>{aid_lines("first-words")}'
-            f'<hr/><p class="practice-label">Initials</p>{aid_lines("initials")}'
             f'<hr/><p class="practice-label">Blank structure</p>{aid_lines("structure")}')
 
 

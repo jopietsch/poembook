@@ -77,7 +77,7 @@ assets:
   commentary, links, recommendations, and every available public-domain text.
 - `poembook-memorize.epub` contains only entries with local full text. Each
   text-first poem chapter is followed by graduated recall cues: memory map,
-  stanza openings, first words, initials, and blank structure. Very long poems
+  stanza openings, first words, and blank structure. Very long poems
   also receive movement chapters. Its compact navigation and typography are
   designed for small, button-driven readers such as the Xteink X3 running
   CrossPoint.

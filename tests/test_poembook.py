@@ -193,6 +193,30 @@ def test_remote_audit_distinguishes_access_restrictions_from_dead_links():
     assert warnings == ["x1: publisher could not be checked (HTTP 403)"]
 
 
+def test_remote_audit_treats_server_errors_as_warnings():
+    records = [{"kind": "link", "slug": "x1", "title": "A Bright Field", "author": "Ada Poet",
+                "label": "publisher", "url": "https://example.test/unavailable"}]
+
+    def fetch(_url):
+        raise urllib.error.HTTPError("https://example.test/unavailable", 504, "Gateway Timeout", {}, None)
+
+    errors, warnings = audit_remote(records, fetch=fetch)
+    assert errors == []
+    assert warnings == ["x1: publisher could not be checked (HTTP 504)"]
+
+
+def test_remote_audit_treats_timeouts_as_warnings():
+    records = [{"kind": "link", "slug": "x1", "title": "A Bright Field", "author": "Ada Poet",
+                "label": "publisher", "url": "https://example.test/slow"}]
+
+    def fetch(_url):
+        raise TimeoutError("The read operation timed out")
+
+    errors, warnings = audit_remote(records, fetch=fetch)
+    assert errors == []
+    assert warnings == ["x1: publisher could not be checked (The read operation timed out)"]
+
+
 def test_remote_audit_accepts_identified_source_when_edition_first_line_differs():
     records = [{"kind": "source", "slug": "x1", "title": "A Bright Field", "author": "Ada Poet",
                 "label": "recorded source", "url": "https://example.test/source", "first_line": "Different edition"}]
@@ -252,7 +276,7 @@ def test_memorize_epub_contains_text_and_recall_aids_only(tmp_path):
         assert love.index("Love bade me welcome") < love.index("Published")
         recall = epub.read("OEBPS/a1-recall.xhtml").decode("utf-8")
         assert "First words" in recall
-        assert "Initials" in recall
+        assert "Initials" not in recall
         assert "Stanza openings" in recall
         assert "Blank structure" in recall
         assert "Memory map" in recall

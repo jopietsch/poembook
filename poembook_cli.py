@@ -8,6 +8,7 @@ import html
 import json
 import os
 import re
+import socket
 import sys
 import urllib.error
 import urllib.parse
@@ -148,9 +149,11 @@ def audit_remote(records=None, fetch=fetch_remote, workers=8):
         try:
             _status, final_url, body = fetch(record["url"])
         except urllib.error.HTTPError as exc:
-            if exc.code in (401, 403, 429, 503):
+            if exc.code in (401, 403, 429) or 500 <= exc.code < 600:
                 return (None, [f"{record['slug']}: {record['label']} could not be checked (HTTP {exc.code})"])
             return (f"{record['slug']}: {record['label']} unreachable: {exc}", [])
+        except (TimeoutError, socket.timeout) as exc:
+            return (None, [f"{record['slug']}: {record['label']} could not be checked ({exc})"])
         except (OSError, UnicodeError, ValueError) as exc:
             return (f"{record['slug']}: {record['label']} unreachable: {exc}", [])
         visible = _page_text(body)
