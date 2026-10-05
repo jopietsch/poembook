@@ -13,6 +13,21 @@ memorization. It currently contains 102 poems in six thematic threads:
 Public-domain texts may be included in the generated book. Copyrighted poems
 remain commentary plus links to authorized sources.
 
+The companion hymnbook has three chapters: the original fourteen requested
+hymns, twenty-five related choices, and Advent and Christmas with thirty
+seasonal hymns. The browse edition lists all sixty-nine and currently includes
+the words of ten documented historic editions. The other fifty-eight linked
+entries name pre-1931 historical editions to inspect, with links and variant
+notes where needed. These leads are not selected texts or word-for-word clearance.
+The English text of "How Great Thou Art" requires permission. Tunes are
+identified but musical scores and arrangements are not yet bundled.
+
+The seasonal chapter draws sixteen entries from [CCEL's historical list of the
+twenty most-published Christmas hymns](https://www.ccel.org/node/6443), omitting
+two general hymns and two less familiar carols from that list. The other
+fourteen are familiar Advent and Christmas selections documented by Hymnary.
+The chapter is curated, not a current popularity ranking.
+
 ## Install
 
 ```bash
@@ -39,6 +54,8 @@ poembook audit-links           # live-check poem links and recorded text sources
 python3 fetch_texts.py         # download missing public-domain texts
 poembook clean-cache           # remove provable title/folio preambles
 poembook build --format all    # browse EPUB, memorize EPUB, and Markdown
+poembook build --book hymns --format all  # hymn browse EPUB and Markdown
+poembook audit --book hymns
 poembook build --format epub --edition browse
 poembook build --format epub --edition memorize
 poembook practice a1 --mode first-words
@@ -120,6 +137,19 @@ often stronger for whole-volume provenance; Wikisource is useful for individual
 poem discovery and extraction. Neither is automatically authoritative. Compare
 against at least one additional reputable edition, preserve intentional edition
 variants, and record all compared URLs and the chosen edition in the sidecar.
+
+## Adding a hymn
+
+Add its stable ID, title, first line, author credit, section, and source link to
+`hymns.py`. A tune ID is optional and does not imply that any particular score
+or harmony can be reproduced. Keep `text_rights="pending"` until selecting a
+specific edition. To include words, set `text_rights="public_domain"` and
+`text_edition`, then add `hymn_texts/<id>.txt` and a matching provenance JSON
+sidecar. A source link alone is not approval to reproduce a modern version.
+For a linked entry, record a `candidate_edition`, `candidate_year`, and
+`candidate_source` in the historical candidates table while researching it.
+Remove that candidate when a specific edition is selected and documented.
+Record human word-for-word editorial review only after it occurs.
 
 ## Files
 

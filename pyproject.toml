@@ -12,7 +12,7 @@ dev = ["pytest>=8"]
 poembook = "poembook_cli:main"
 
 [tool.setuptools]
-py-modules = ["poembook_cli", "poems", "build_epub", "make_markdown", "fetch_texts"]
+py-modules = ["poembook_cli", "poems", "hymns", "build_epub", "build_hymns", "make_markdown", "fetch_texts"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

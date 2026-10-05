@@ -1,0 +1,12 @@
+{
+  "chosen_edition": "The Army and Navy Hymnal (1920), no. 240",
+  "url": "https://en.wikisource.org/wiki/The_Army_and_Navy_Hymnal/Hymns/Praise_God%2C_from_Whom_All_Blessings_Flow",
+  "text_rights": "public_domain",
+  "verification": {
+    "editorial": {
+      "status": "pending",
+      "method": "Human word-for-word comparison against the chosen edition required"
+    }
+  },
+  "notes": "Words only. The source's musical syllable breaks and sung Amen are omitted; no tune arrangement is reproduced."
+}

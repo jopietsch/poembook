@@ -1,0 +1,12 @@
+{
+  "chosen_edition": "The Canadian Soldiers' Song Book (1919), no. 161",
+  "url": "https://en.wikisource.org/wiki/The_Canadian_Soldiers%27_Song_Book/When_Peace_Like_a_River",
+  "text_rights": "public_domain",
+  "verification": {
+    "editorial": {
+      "status": "pending",
+      "method": "Human word-for-word comparison against the chosen edition required"
+    }
+  },
+  "notes": "This edition prints three stanzas and a chorus. Indentation and spacing of the printed chorus have been normalized; no additional stanzas have been supplied."
+}

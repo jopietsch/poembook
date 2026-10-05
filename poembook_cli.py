@@ -294,9 +294,11 @@ def main(argv=None):
     commands = parser.add_subparsers(dest="command", required=True)
     audit_parser = commands.add_parser("audit", help="check metadata and downloaded texts")
     audit_parser.add_argument("--strict", action="store_true", help="treat warnings as failure")
+    audit_parser.add_argument("--book", choices=("poems", "hymns"), default="poems")
     remote_parser = commands.add_parser("audit-links", help="check remote poem links and recorded text sources")
     remote_parser.add_argument("--strict", action="store_true", help="treat ambiguous page matches as failure")
     build_parser = commands.add_parser("build", help="build EPUB, Markdown, or both")
+    build_parser.add_argument("--book", choices=("poems", "hymns"), default="poems")
     build_parser.add_argument("--format", choices=("epub", "markdown", "all"), default="all")
     build_parser.add_argument("--edition", choices=("browse", "memorize", "all"), default="all",
                               help="EPUB edition(s) to build; Markdown is always the browse edition")
@@ -321,6 +323,13 @@ def main(argv=None):
     args = parser.parse_args(argv)
 
     if args.command == "audit":
+        if args.book == "hymns":
+            from build_hymns import audit_hymns
+            errors = audit_hymns()
+            for item in errors:
+                print(f"ERROR {item}")
+            print(f"\n{len(errors)} errors")
+            return 1 if errors else 0
         errors, warnings = audit()
         for item in errors:
             print(f"ERROR {item}")
@@ -337,6 +346,19 @@ def main(argv=None):
         print(f"\n{len(errors)} errors, {len(warnings)} warnings")
         return 1 if errors or (args.strict and warnings) else 0
     if args.command == "build":
+        if args.book == "hymns":
+            if args.edition == "memorize":
+                raise SystemExit("the hymn book currently has a browse edition only")
+            from build_hymns import build_epub as build_hymn_epub, build_markdown as build_hymn_markdown
+            if args.format in ("epub", "all"):
+                output = ROOT / "hymnbook-browse.epub"
+                counts = build_hymn_epub(output)
+                print(f"wrote {output.name} ({counts['total']} hymns; {counts['with_text']} with words)")
+            if args.format in ("markdown", "all"):
+                output = ROOT / "hymnbook-browse.md"
+                counts = build_hymn_markdown(output)
+                print(f"wrote {output.name} ({counts['total']} hymns; {counts['with_text']} with words)")
+            return 0
         if args.format in ("epub", "all"):
             from build_epub import build
             editions = ("browse", "memorize") if args.edition == "all" else (args.edition,)

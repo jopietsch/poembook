@@ -1,0 +1,12 @@
+{
+  "chosen_edition": "The Army and Navy Hymnal (1920), no. 4",
+  "url": "https://en.wikisource.org/wiki/The_Army_and_Navy_Hymnal/Hymns/Holy%2C_Holy%2C_Holy%2C_Lord_God_Almighty",
+  "text_rights": "public_domain",
+  "verification": {
+    "editorial": {
+      "status": "pending",
+      "method": "Human word-for-word comparison against the chosen edition required"
+    }
+  },
+  "notes": "Words only. Printed stanza numbers, musical syllable breaks, and the sung Amen are omitted."
+}
