@@ -1,0 +1,12 @@
+{
+  "chosen_edition": "The Army and Navy Hymnal (1920), no. 34",
+  "url": "https://en.wikisource.org/wiki/The_Army_and_Navy_Hymnal/Hymns/Angels%2C_from_the_Realms_of_Glory",
+  "text_rights": "public_domain",
+  "verification": {
+    "editorial": {
+      "status": "pending",
+      "method": "Human word-for-word comparison against the chosen edition required"
+    }
+  },
+  "notes": "This edition prints four stanzas and a refrain, given once after stanza 1; stanza-final colons and semicolons are as printed. The Wikisource transcription garbles stanza 4; it is taken from the scan."
+}

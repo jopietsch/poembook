@@ -1,0 +1,12 @@
+{
+  "chosen_edition": "The English Hymnal (1906), no. 9",
+  "url": "https://commons.wikimedia.org/w/index.php?title=File:The_English_Hymnal_(1906,_lyrics_only).djvu&page=27",
+  "text_rights": "public_domain",
+  "verification": {
+    "editorial": {
+      "status": "pending",
+      "method": "Human word-for-word comparison against the chosen edition required"
+    }
+  },
+  "notes": "Five stanzas (C. Coffin, tr. J. Chandler) transcribed directly from scan page 7, since Wikisource has no transcribed page for this hymn; the closing 'Amen' is omitted and the drop-cap 'ON' normalized to 'On'."
+}

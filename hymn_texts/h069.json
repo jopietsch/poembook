@@ -1,0 +1,12 @@
+{
+  "chosen_edition": "The School Hymnal (1920), no. 288",
+  "url": "https://archive.org/details/schoolhymnal0000milt/page/n279/mode/1up",
+  "text_rights": "public_domain",
+  "verification": {
+    "editorial": {
+      "status": "pending",
+      "method": "Human word-for-word comparison against the chosen edition required"
+    }
+  },
+  "notes": "Dwight's translation, stanzas 1 and 2 only (pp. 266-268, A. S. Barnes, 1920); the hymn is credited only to 'Adolphe Adam, Arr.' with no translator named, and Dwight's third stanza ('Truly He taught us to love one another') is not printed. Each stanza's chorus section carries different words, so it is kept within its stanza; dotted melisma marks, syllable hyphens and the lower-voice echo ('O night divine' / 'Behold your King') are omitted, and the mid-line capitals ('To our weakness', 'Before Him') follow the print."
+}

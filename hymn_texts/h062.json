@@ -1,0 +1,12 @@
+{
+  "chosen_edition": "The Army and Navy Hymnal (1920), no. 44",
+  "url": "https://en.wikisource.org/wiki/The_Army_and_Navy_Hymnal/Hymns/Away_in_a_Manger",
+  "text_rights": "public_domain",
+  "verification": {
+    "editorial": {
+      "status": "pending",
+      "method": "Human word-for-word comparison against the chosen edition required"
+    }
+  },
+  "notes": "This edition prints two stanzas (attributed there to Martin Luther), without the later 'Be near me, Lord Jesus' stanza. It reads 'Asleep on the hay', not 'in the hay' as Wikisource has it."
+}

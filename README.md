@@ -16,11 +16,15 @@ remain commentary plus links to authorized sources.
 The companion hymnbook has three chapters: the original fourteen requested
 hymns, twenty-five related choices, and Advent and Christmas with thirty
 seasonal hymns. The browse edition lists all sixty-nine and currently includes
-the words of ten documented historic editions. The other fifty-eight linked
-entries name pre-1931 historical editions to inspect, with links and variant
-notes where needed. These leads are not selected texts or word-for-word clearance.
-The English text of "How Great Thou Art" requires permission. Tunes are
-identified but musical scores and arrangements are not yet bundled.
+the words of sixty-six hymns, each from a documented edition published before
+1931 and taken from that edition's page scans or a Project Gutenberg
+transcription. Many historic editions print fewer stanzas or different wording
+than modern hymnals; the provenance sidecars note these differences. Two linked
+entries still name pre-1931 editions to inspect: "Great Is Thy Faithfulness"
+and "Go, Tell It on the Mountain", whose 1909 printing differs from the
+catalog's verses. These leads are not selected texts or word-for-word
+clearance. The English text of "How Great Thou Art" requires permission. Tunes
+are identified but musical scores and arrangements are not yet bundled.
 
 The seasonal chapter draws sixteen entries from [CCEL's historical list of the
 twenty most-published Christmas hymns](https://www.ccel.org/node/6443), omitting

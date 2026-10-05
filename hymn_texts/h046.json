@@ -1,0 +1,12 @@
+{
+  "chosen_edition": "The Army and Navy Hymnal (1920), no. 32",
+  "url": "https://en.wikisource.org/wiki/The_Army_and_Navy_Hymnal/Hymns/Hark%21_the_Herald_Angels_Sing",
+  "text_rights": "public_domain",
+  "verification": {
+    "editorial": {
+      "status": "pending",
+      "method": "Human word-for-word comparison against the chosen edition required"
+    }
+  },
+  "notes": "This edition prints three eight-line stanzas and a two-line refrain, given once after stanza 1. Stanza 3 ends with a semicolon as printed; the Wikisource transcription's 'Born that no more may die' is corrected to 'Born that man no more may die' from the scan."
+}
